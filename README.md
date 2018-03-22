@@ -3,6 +3,7 @@
 ## What is Salesforce?
 - Salesforce is a customer success platform designed to help you sell, service, market, analyze, and connect with customers.
 - Salesforce has everything you need to run your business from anywhere. Using standard products and features, you can manage relationships with prospects and customers, collaborate and engage with employees and partners, and store your data securely in the cloud.
+---
 
 ## Salesforce Data
 - Salesforce organizes data into `Objects` and `Records`.
@@ -13,7 +14,8 @@
 ### Records
 - Similar to rows in spreadsheet tabs (e.g. Account Name, Phone, Website, Industry)
 
-## Standard Objects
+---
+## Salesforce Standard Objects
 - Objects that Salesforce already comes set up with and ready for use.
 - Accounts, Contacts, Leads, Opportunities
 
