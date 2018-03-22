@@ -32,3 +32,28 @@
 ### Opportunities
 - Qualified leads that you’ve converted. When you convert a lead, you create an Account and Contact along with the Opportunity.
 
+---
+## Data Quality
+
+### Reference
+- [Data Quality: Getting Started](https://trailhead.salesforce.com/trails/getting_started_crm_basics/modules/data_quality/units/data_quality_getting_started)
+
+### Causes of Bad Data
+- Missing Records
+- Duplicate Records
+- No Data Standards
+- Incomplete Records
+- Stale Data
+
+### Benefits of Good Data
+- Prospect and target new customers
+- Identify cross-sell and upsell opportunities
+- Gain account insights
+- Increase efficiency
+- Retrieve the right info fast
+- Build trust with customers
+- Increase adoption by reps
+- Plan and align territories better
+- Score and route leads faster
+
+---
