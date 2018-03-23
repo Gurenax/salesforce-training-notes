@@ -207,3 +207,19 @@
 ## AppExchange
 - Salesforce has a community of partners that use the flexibility of the Salesforce platform to build amazing apps and other solutions that anyone can use. These offerings are available (some for free, some at a cost) for installation on AppExchange.
 
+---
+
+## Data Model
+- Collection of objects and fields in an app
+
+### Standard Objects
+- Objects that are included with Salesforce. Common business objects like Account, Contact, Lead, and Opportunity are all standard objects
+
+### Custom Objects
+- Objects that you create to store information that’s specific to your company or industry.
+
+---
+
+### Object Relationship
+- Object relationships are a special field type that connects two objects together
+
