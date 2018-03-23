@@ -98,6 +98,9 @@
 - Chatter connects, engages, and motivates users to work efficiently across the organization, regardless of role or location.
 - Chatter lets users collaborate on sales opportunities, service cases, campaigns, and projects with embedded apps and custom actions.
 
+### Reference
+- [Introduction to Chatter](https://trailhead.salesforce.com/trails/getting_started_crm_basics/modules/chatter/units/chatter_intro)
+
 ### Profiles
 - Everyone in your organization has a Chatter profile that they can customize with a photo, contact information, and a personal overview.
 
