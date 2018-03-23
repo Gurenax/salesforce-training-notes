@@ -236,3 +236,10 @@
 - Hierarchical relationships are a special type of lookup relationship.
 - The main difference between the two is that hierarchical relationships are only available on the User object. 
 
+---
+
+## Schema Builder
+- Schema Builder is a tool that lets you visualize and edit your data model. It’s useful for designing and understanding complex data models.
+- You can also create objects using Schema Builder. If you prefer, you can create objects in this visual interface if you’re designing your system and want to be able to revise all your customizations on the spot.
+
+---
