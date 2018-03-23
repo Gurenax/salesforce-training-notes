@@ -220,6 +220,19 @@
 
 ---
 
-### Object Relationship
+## Object Relationship
 - Object relationships are a special field type that connects two objects together
+
+### Lookup Relationships
+- A lookup relationship essentially links two objects together so that you can “look up” one object from the related items on another object.
+- Lookup relationships can be one-to-one or one-to-many (e.g. Account to Contacts is one-to-many).
+- Objects in lookup relationships usually work as stand-alone objects and have their own tabs in the user interface.
+
+### Master-Detail Relationships
+- In this type of relationship, one object is the master and another is the detail. The master object controls certain behaviors of the detail object, like who can view the detail’s data.
+= The detail object doesn’t work as a stand-alone. It’s highly dependent on the master.
+
+### Hierarchical relationships 
+- Hierarchical relationships are a special type of lookup relationship.
+- The main difference between the two is that hierarchical relationships are only available on the User object. 
 
