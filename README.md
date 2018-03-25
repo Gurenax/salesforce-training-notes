@@ -147,6 +147,9 @@
 - Salesforce is more than just a CRM.
 - Salesforce comes with a lot of standard functionality, or out-of-the-box products and features that you can use to run your business. Here are some common things businesses want to do with Salesforce and the features we give you that support those activities.
 
+### Reference
+- [Salesforce Platform Basics](https://trailhead.salesforce.com/trails/force_com_admin_beginner/modules/starting_force_com)
+
 ### App
 - An app in Salesforce is a set of objects, fields, and other functionality that supports a business process.
 - You can see which app you’re using and switch between apps using the `App Launcher`.
@@ -212,6 +215,9 @@
 ## Data Model
 - Collection of objects and fields in an app
 
+### Reference
+- [Data Modeling](https://trailhead.salesforce.com/trails/force_com_admin_beginner/modules/data_modeling)
+
 ### Standard Objects
 - Objects that are included with Salesforce. Common business objects like Account, Contact, Lead, and Opportunity are all standard objects
 
@@ -243,6 +249,11 @@
 - You can also create objects using Schema Builder. If you prefer, you can create objects in this visual interface if you’re designing your system and want to be able to revise all your customizations on the spot.
 
 ---
+
+## Data Management
+
+### Reference
+- [Data Management](https://trailhead.salesforce.com/trails/force_com_admin_beginner/modules/lex_implementation_data_management)
 
 ## Data Import
 
