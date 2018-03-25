@@ -261,3 +261,20 @@
 * You need to load 50,000 to five million records. If you need to load more than 5 million records, we recommend you work with a Salesforce partner or visit the AppExchange for a suitable partner product.
 * You need to load into an object that is not supported by the Data Import Wizard.
 * You want to schedule regular data loads, such as nightly imports.
+
+## Data Export
+
+### Data Export Wizard
+- This is an in-browser wizard, accessible through the Setup menu. It allows you to export data manually once every six days (for weekly export) or 28 days (for monthly export). You can also export data automatically, at weekly or monthly intervals.
+
+### Data Loader
+- Same definition as Data Loader above.
+
+### Export Now
+- Exports data immediately.
+
+### Schedule Export
+- Schedule the export process for `Weekly` or `Monthly` intervals.
+
+---
+
