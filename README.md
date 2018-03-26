@@ -236,7 +236,7 @@
 
 ### Master-Detail Relationships
 - In this type of relationship, one object is the master and another is the detail. The master object controls certain behaviors of the detail object, like who can view the detail’s data.
-= The detail object doesn’t work as a stand-alone. It’s highly dependent on the master.
+- The detail object doesn’t work as a stand-alone. It’s highly dependent on the master.
 
 ### Hierarchical relationships 
 - Hierarchical relationships are a special type of lookup relationship.
@@ -288,4 +288,26 @@
 - Schedule the export process for `Weekly` or `Monthly` intervals.
 
 ---
+
+## Lightning Experience Customization
+
+### Reference
+- [Lightning Experience Customization](https://trailhead.salesforce.com/trails/force_com_admin_beginner/modules/lex_customization)
+
+### Setting up an Org
+1. Create a Custom Object
+2. Create a Custom Object Tab
+3. Create Custom Fields
+4. Create Records
+
+### What Is a Lightning App?
+- An app is a collection of items that work together to serve a particular function. In Lightning Experience, Lightning apps give your users access to sets of objects, tabs, and other items all in one convenient bundle in the navigation bar.
+
+### App Manager
+- The App Manager is your go-to place for managing apps for Lightning Experience. It shows all your connected apps and Salesforce apps.
+- Use the Lightning Experience App Manager to:
+  - View all your Salesforce apps.
+  - Create Lightning apps or connected apps.
+  - See which apps are visible in Lightning Experience.
+  - Easily manage apps.
 
