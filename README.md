@@ -348,3 +348,17 @@
 3. `Detail page button` — Appears in the action menu in the highlights panel of a record page.
 
 ---
+
+## Quick Actions
+- Actions let your users quickly do tasks, such as create records, log calls, send emails, and more.
+- With custom actions, you can make your users’ navigation and workflow as smooth as possible by giving them quick access to information that’s most important.
+
+### Object-specific actions
+- Object-specific actions have automatic relationships to other records and let users quickly create or update records, log calls, send emails, and more, in the context of a particular object.
+
+### Global actions
+- You create global actions in a different place in Setup than you create object-specific actions. They’re called global actions because they can be put anywhere actions are supported.
+- Use global actions to let users log call details, create or update records, or send email, all without leaving the page they’re on.
+
+---
+
