@@ -362,3 +362,28 @@
 
 ---
 
+## Salesforce Mobile App Customization
+
+### Reference
+- [Salesforce Mobile App Customization](https://trailhead.salesforce.com/trails/force_com_admin_beginner/modules/salesforce1_mobile_app)
+
+### Quick Actions
+- They are shortcuts in a mobile app.
+- They offer a fast way for mobile users to launch a specific workflow in the Salesforce mobile app, like creating records, logging calls, or sharing files.
+
+### Why Quick Actions
+- You can create custom actions tailored to your own business processes and use cases.
+- Each action has its own unique page layout, so you can limit the fields to just the ones mobile users truly need.
+- You can prepopulate fields on the page layout to save mobile users some time.
+
+
+### Types of Quick Actions
+- `Object-specific actions` let users create or update records in the context of a particular object. In the Salesforce app, object-specific actions show up on record detail pages. So for example, an action associated with the opportunity object is only available when a user is looking at an opportunity.
+
+- `Global actions` let users create records, but the new record has no relationship with other records. And they’re called global actions because they can be put anywhere actions are supported—on record detail pages, but also places like the feed or Chatter groups.
+
+### Publisher Layout
+- Allows to create layout of actions for global pages such as Home, Chatter Home and User Profile.
+
+
+---
