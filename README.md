@@ -453,3 +453,26 @@
 ### Matrix Reports
 - Matrix reports allow you to group records both by row and by column. These reports are the most time-consuming to set up, but they also provide the most detailed view of our data.
 
+
+---
+
+## Salesforce Platform Development Basics
+
+### Reference
+- [Platform Development Basics](https://trailhead.salesforce.com/trails/force_com_dev_beginner/modules/platform_dev_basics)
+
+### Salesforce Platform
+- Like any platform, the Salesforce platform is a group of technologies that supports the development of other technologies on top of it. What makes it unique is that the platform supports not only all the Salesforce clouds, but it also supports custom functionality built by our customers and partners. This functionality ranges from simple page layouts to full-scale applications.
+
+### Core Platform
+- The core platform lets you develop custom data models and applications for desktop and mobile. And with the platform behind your development, you can build robust systems at a rapid pace.
+
+### Heroku Platform
+- Heroku gives developers the power to build highly scalable web apps and back-end services using Python, Ruby, Go, and more. It also provides database tools to sync seamlessly with data from Salesforce.
+
+### Salesforce APIs
+- These let developers integrate and connect all their enterprise data, networks, and identity information.
+
+### Mobile SDK
+- The Mobile SDK is a suite of technologies that lets you build native, HTML5, and hybrid apps that have the same reliability and security as the Salesforce app.
+
