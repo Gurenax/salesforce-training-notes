@@ -476,3 +476,21 @@
 ### Mobile SDK
 - The Mobile SDK is a suite of technologies that lets you build native, HTML5, and hybrid apps that have the same reliability and security as the Salesforce app.
 
+---
+
+### Metadata-driven development model
+- the key differences between developing on the platform and developing outside of Salesforce. Because the platform is metadata-aware, it can auto-generate a significant part of your user experience for you.
+- Things like dialogs, record lists, detail views, and forms that you’d normally have to develop by yourself come for free.
+- You even get all the functionality to create, read, update, and delete (affectionately referred to as CRUD) custom object records in the database.
+
+---
+
+### Lightning Component Framework
+- A UI development framework similar to AngularJS or React.
+
+### Apex
+- Salesforce’s proprietary programming language with Java-like syntax.
+
+### Visualforce
+- A markup language that lets you create custom Salesforce pages with code that looks a lot like HTML, and optionally can use a powerful combination of Apex and JavaScript.
+
