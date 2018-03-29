@@ -494,3 +494,25 @@
 ### Visualforce
 - A markup language that lets you create custom Salesforce pages with code that looks a lot like HTML, and optionally can use a powerful combination of Apex and JavaScript.
 
+---
+
+## Data Security
+
+### Reference
+- [Data Security](https://trailhead.salesforce.com/trails/force_com_dev_beginner/modules/data_security)
+
+### Levels of Data Access
+1. Organization
+- For your whole org, you can maintain a list of authorized users, set password policies, and limit logins to certain hours and locations.
+
+2. Objects
+- Access to object-level data is the simplest thing to control. By setting permissions on a particular type of object, you can prevent a group of users from creating, viewing, editing, or deleting any records of that object.
+- For example, you can use object permissions to ensure that interviewers can view positions and job applications but not edit or delete them.
+
+3. Fields
+- You can restrict access to certain fields, even if a user has access to the object.
+- For example, you can make the salary field in a position object invisible to interviewers but visible to hiring managers and recruiters.
+
+4. Records
+- You can allow particular users to view an object, but then restrict the individual object records they're allowed to see.
+- For example, an interviewer can see and edit her own reviews, but not the reviews of other interviewers. You can manage record-level access in these four ways.
