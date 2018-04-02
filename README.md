@@ -517,6 +517,52 @@
 - You can allow particular users to view an object, but then restrict the individual object records they're allowed to see.
 - For example, an interviewer can see and edit her own reviews, but not the reviews of other interviewers. You can manage record-level access in these four ways.
 
+---
 
+## Control Access to Orgs
 ### Manage Users
 - Every Salesforce user is identified by a username, a password, and a single profile. Together with other settings, the profile determines what tasks users can perform, what data they see, and what they can do with the data.
+
+  - Create User
+  - Deactivate a User
+  - Set Password Policy
+  - Restrict Login Access by IP Address
+  - Restrict Login Access by Time
+
+---
+
+## Control Access to Objects
+### Manage Object Permissions
+- The simplest way to control data access is to set permissions on a particular type of object. (An object is a collection of records, like leads or contacts.) You can control whether a group of users can create, view, edit, or delete any records of that object.
+
+- You can set object permissions with profiles or permission sets. A user can have one profile and many permission sets.
+  - A user’s profile determines the objects they can access and the things they can do with any object record (such as create, read, edit, or delete).
+  - Permission sets grant additional permissions and access settings to a user.
+
+- Use profiles to grant the minimum permissions and settings that all users of a particular type need. Then use permission sets to grant more permissions as needed. The combination of profiles and permission sets gives you a great deal of flexibility in specifying object-level access.
+
+
+### Use Profiles to Restrict Access
+- Each user has a single profile that controls which data and features that user has access to. A profile is a collection of settings and permissions. Profile settings determine which data the user can see, and permissions determine what the user can do with that data.
+  - The settings in a user’s profile determine whether she can see a particular app, tab, field, or record type.
+  - The permissions in a user’s profile determine whether she can create or edit records of a given type, run reports, and customize the app.
+
+- Profiles usually match up with a user's job function (for example, system administrator, recruiter, or hiring manager), but you can have profiles for anything that makes sense for your Salesforce org. A profile can be assigned to many users, but a user can have only one profile at a time.
+
+
+### Standard Profiles
+- Read Only
+- Standard User
+- Marketing User
+- Contract Manager
+- System Administrator
+
+### Permission Sets
+- A permission set is a collection of settings and permissions that give users access to various tools and functions. The settings and permissions in permission sets are also found in profiles, but permission sets extend users’ functional access without changing their profiles.
+
+- Permission sets make it easy to grant access to the various apps and custom objects in your org, and to take away access when it’s no longer needed.
+
+- Users can have only one profile, but they can have multiple permission sets.
+
+- You'll be using permission sets for two general purposes: to grant access to custom objects or apps, and to grant permissions—temporarily or long term—to specific fields.
+
