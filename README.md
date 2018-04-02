@@ -566,3 +566,16 @@
 
 - You'll be using permission sets for two general purposes: to grant access to custom objects or apps, and to grant permissions—temporarily or long term—to specific fields.
 
+---
+
+## Control Access to Fields
+
+### Modify Field-Level Security
+- Defining field-level security for sensitive fields is the second piece of the security and sharing puzzle, after controlling object-level access.
+
+### Restrict Field Access with a Profile
+- You apply field settings by modifying profiles or permission sets. 
+
+---
+
+## 
