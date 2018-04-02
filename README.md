@@ -578,4 +578,17 @@
 
 ---
 
-## 
+## Control Access to Records
+
+### Record-Level Security
+- Record access determines which individual records users can view and edit in each object they have access to in their profile. First ask yourself these questions:
+  - Should your users have open access to every record, or just a subset?
+  - If it’s a subset, what rules should determine whether the user can access them?
+
+- You control record-level access in four ways. They’re listed in order of increasing access. You use org-wide defaults to lock down your data to the most restrictive level, and then use the other record-level security tools to grant access to selected users, as required.
+
+  1. `Org-wide defaults` - specify the default level of access users have to each other’s records.
+  2. `Role hierarchies` - ensure managers have access to the same records as their subordinates. Each role in the hierarchy represents a level of data access that a user or group of users needs.
+  3. `Sharing rules` - are automatic exceptions to org-wide defaults for particular groups of users, to give them access to records they don’t own or can’t normally see.
+  4. `Manual sharing` - lets record owners give read and edit permissions to users who might not have access to the record any other way.
+
