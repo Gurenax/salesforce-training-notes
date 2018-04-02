@@ -592,3 +592,14 @@
   3. `Sharing rules` - are automatic exceptions to org-wide defaults for particular groups of users, to give them access to records they don’t own or can’t normally see.
   4. `Manual sharing` - lets record owners give read and edit permissions to users who might not have access to the record any other way.
 
+## Role Hierarchy
+- A role hierarchy works together with sharing settings to determine the levels of access users have to your Salesforce data. Users can access the data of all the users directly below them in the hierarchy.
+
+### Sharing Rules
+- This enables you to make automatic exceptions to your org-wide sharing settings for selected sets of users.
+- Sharing rules can be based on who owns the record or on the values of fields in the record. For example, use sharing rules to extend sharing access to users in public groups or roles. As with role hierarchies, sharing rules can never be stricter than your org-wide default settings. They just allow greater access for particular users.
+
+### Public Group
+- Using a public group when defining a sharing rule makes the rule easier to create and, more important, easier to understand later, especially if it's one of many sharing rules that you're trying to maintain in a large organization.
+- Create a public group if you want to define a sharing rule that encompasses more than one or two groups or roles, or any individual.
+
