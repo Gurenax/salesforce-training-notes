@@ -516,3 +516,7 @@
 4. Records
 - You can allow particular users to view an object, but then restrict the individual object records they're allowed to see.
 - For example, an interviewer can see and edit her own reviews, but not the reviews of other interviewers. You can manage record-level access in these four ways.
+
+
+### Manage Users
+- Every Salesforce user is identified by a username, a password, and a single profile. Together with other settings, the profile determines what tasks users can perform, what data they see, and what they can do with the data.
