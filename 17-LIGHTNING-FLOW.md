@@ -42,3 +42,18 @@
 - Cloud Flow Designer is like a workflow which requires human input.
 - Approval Automation is a process specifically made to request for an approval or sign-off and that requires human interaction.
 
+---
+
+## Process Builder
+- Process Builder is a point-and-click tool that lets you easily automate if/then business processes and see a graphical representation of your process as you build.
+
+- Every process consists of a trigger, at least one criteria node, and at least one action. You can configure `immediate actions` or `schedule actions` to be executed at a specific time.
+  - Each `immediate action` is executed as soon as the criteria evaluates to true.
+  - Each `scheduled action` is executed at the specified time, such as 10 days before the record’s close date or 2 days from now.
+
+### Process Types
+1. Record Change	- Process starts when `a record is created or edited`
+2. Invocable	- Process starts when `it’s called by another process`
+3. Platform Event - Process starts when `a platform event message is received`
+
+
