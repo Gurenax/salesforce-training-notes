@@ -28,3 +28,7 @@
 
 
 ### Validation Rules
+- Validation rules verify that data entered by users in records meet the standards you specify before they can save it.
+- A validation rule can contain a formula or expression that evaluates the data in one or more fields and returns a value of “True” or “False.”
+- Validation rules can also include error messages to display to users when they enter invalid values based on specified criteria. Using these rules effectively contributes to quality data. 
+- For example, you can ensure that all phone number fields contain a specified format or that discounts applied to certain products never exceed a defined percentage.
