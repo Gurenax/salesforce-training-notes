@@ -1,13 +1,13 @@
-## Data Model
+# Data Model
 - Collection of objects and fields in an app
 
-### Reference
+## Reference
 - [Data Modeling](https://trailhead.salesforce.com/trails/force_com_admin_beginner/modules/data_modeling)
 
-### Standard Objects
+## Standard Objects
 - Objects that are included with Salesforce. Common business objects like Account, Contact, Lead, and Opportunity are all standard objects
 
-### Custom Objects
+## Custom Objects
 - Objects that you create to store information that’s specific to your company or industry.
 
 ---

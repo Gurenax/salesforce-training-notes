@@ -1,4 +1,4 @@
-## What is Salesforce?
+# What is Salesforce?
 - Salesforce is a customer success platform designed to help you sell, service, market, analyze, and connect with customers.
 - Salesforce has everything you need to run your business from anywhere. Using standard products and features, you can manage relationships with prospects and customers, collaborate and engage with employees and partners, and store your data securely in the cloud.
 

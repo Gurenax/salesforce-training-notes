@@ -1,9 +1,9 @@
-## Data Security
+# Data Security
 
-### Reference
+## Reference
 - [Data Security](https://trailhead.salesforce.com/trails/force_com_dev_beginner/modules/data_security)
 
-### Levels of Data Access
+## Levels of Data Access
 1. Organization
 - For your whole org, you can maintain a list of authorized users, set password policies, and limit logins to certain hours and locations.
 

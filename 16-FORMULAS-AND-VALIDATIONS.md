@@ -1,10 +1,10 @@
-## Formulas & Validations
+# Formulas & Validations
 
-### Reference
+## Reference
 - [Formulas & Validations](https://trailhead.salesforce.com/trails/force_com_dev_beginner/modules/point_click_business_logic)
 
 
-### Formula Fields
+## Formula Fields
 - Fields that have calculated values based on a Formula which is entered in the Formula Editor.
 - You can create custom formula fields on any standard or custom object.
 - Always use the `Check Syntax` button
@@ -12,7 +12,7 @@
   - The syntax checker tells you what error it encountered and where it’s located in your formula. 
 
 
-### Roll-Up Summary Fields
+## Roll-Up Summary Fields
 - While formula fields calculate values using fields within a single record, roll-up summary fields calculate values from a set of related records, such as those in a related list.
 - You can create roll-up summary fields that automatically display a value on a master record based on the values of records in a detail record. These detail records must be directly related to the master through a master-detail relationship
 
@@ -27,7 +27,7 @@
   - `MAX` -	Displays the highest value of the field you select in the Field to Aggregate option for all directly related records. Only number, currency, percent, date, and date/time fields are available.
 
 
-### Validation Rules
+## Validation Rules
 - Validation rules verify that data entered by users in records meet the standards you specify before they can save it.
 - A validation rule can contain a formula or expression that evaluates the data in one or more fields and returns a value of “True” or “False.”
 - Validation rules can also include error messages to display to users when they enter invalid values based on specified criteria. Using these rules effectively contributes to quality data. 
