@@ -39,7 +39,7 @@
 - Process Builder and Cloud Flow Designer are Lightning Flow tools. Approval Automation is just an additional tool.
 
 - Process Builder is like a background job which doesn't need human interaction.
-- Cloud Flow Designer is like a workflow which requires human input.
+- Cloud Flow Designer is like a workflow which may or may not requires human input. (e.g. Screen flows requires human input, Autolaunches flows do not )
 - Approval Automation is a process specifically made to request for an approval or sign-off and that requires human interaction.
 
 ---
@@ -56,4 +56,30 @@
 2. Invocable	- Process starts when `it’s called by another process`
 3. Platform Event - Process starts when `a platform event message is received`
 
+
+---
+
+## Cloud Flow Designer
+- Cloud Flow Designer is a point-and-click tool for building flows.
+
+### Flow Building Blocks
+1. `Elements` - appear on the canvas. To add an element to the canvas, drag it there from the palette.
+2. `Connectors` - define the path that the flow takes at runtime. They tell the flow which element to execute next.
+3. `Resources` - are containers that represent a given value, such as field values or formulas. You can reference resources throughout your flow. For example, look up an account’s ID, store that ID in a variable, and later reference that ID to update the account.
+
+### Flow Elements
+1. `Screen` - Display data to your users or collect information from them with Screen elements. You can add simple fields to your screens, like input fields and radio buttons and out-of-the-box Lightning components like File Upload
+
+2. `Logic` - Control the flow of... well, your flow. Create branches, update data, loop over sets of data, or wait for a particular time.
+
+3. `Actions` - Do something in Salesforce when you have the necessary information (perhaps collected from the user via a screen). Flows can look up, create, update, and delete Salesforce records. They can also create Chatter posts, submit records for approval, and send emails. If your action isn’t possible out of the box, call Apex code from the flow.
+
+4. `Integrations` - In addition to connecting with external systems by calling Apex code, the Cloud Flow Designer has a couple of tie-ins to platform events. Publish platform event messages with a Record Create element. Subscribe to platform events with a Wait element.
+
+
+### Flow Variables
+1. `Variable` - A single value.
+2. `sObject Variable` - A set of field values for a single record.
+3. `Collection Variable` - Multiple values of the same data type.
+4. `sObject Collection Variable`- A set of field values for multiple records that have the same object.
 
