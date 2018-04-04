@@ -83,3 +83,11 @@
 3. `Collection Variable` - Multiple values of the same data type.
 4. `sObject Collection Variable`- A set of field values for multiple records that have the same object.
 
+
+---
+
+## Approvals
+- An approval process automates how Salesforce records are approved in your org. In an approval process, you specify:
+  - The steps necessary for a record to be approved and who approves it at each step.
+  - The actions to take based on what happens during the approval process.
+
