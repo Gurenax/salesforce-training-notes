@@ -265,3 +265,118 @@ public class AccountHandler {
 	}
 }
 ```
+
+---
+
+## Salesforce Object Query Language (SOQL)
+- used to read saved records. SOQL is similar to the standard SQL language but is customized for the Lightning Platform.
+
+- Because Apex has direct access to Salesforce records that are stored in the database, you can embed SOQL queries in your Apex code and get results in a straightforward fashion. When SOQL is embedded in Apex, it is referred to as inline SOQL.
+
+### Inline SOQL
+```java
+Account[] accts = [SELECT Name,Phone FROM Account];
+```
+
+### Query Editor
+- The Developer Console provides the Query Editor console, which enables you to run your SOQL queries and view results. The Query Editor provides a quick way to inspect the database. It is a good way to test your SOQL queries before adding them to your Apex code. When you use the Query Editor, you need to supply only the SOQL statement without the Apex code that surrounds it.
+
+
+### Basic SOQL Syntax
+```java
+SELECT Name,Phone FROM Account
+```
+
+### SOQL Syntax with WHERE condition
+```java
+SELECT Name,Phone FROM Account WHERE Name='SFDC Computing'
+
+SELECT Name,Phone FROM Account WHERE (Name='SFDC Computing' AND NumberOfEmployees>25)
+
+SELECT Name,Phone FROM Account WHERE (Name='SFDC Computing' OR (NumberOfEmployees>25 AND BillingCity='Los Angeles'))
+```
+
+### SOQL Syntax with ORDER BY clause
+```java
+SELECT Name,Phone FROM Account ORDER BY Name
+
+SELECT Name,Phone FROM Account ORDER BY Name ASC
+
+SELECT Name,Phone FROM Account ORDER BY Name DESC
+```
+
+### SOQL Syntax with LIMIT clause
+```java
+SELECT Name,Phone FROM Account LIMIT 1
+```
+
+### SOQL Syntax combined
+```java
+SELECT Name,Phone FROM Account 
+      WHERE (Name = 'SFDC Computing' AND NumberOfEmployees>25)
+      ORDER BY Name
+      LIMIT 10
+```
+
+### SOQL Inline combined
+```java
+Account[] accts = [SELECT Name,Phone FROM Account 
+      WHERE (Name='SFDC Computing' AND NumberOfEmployees>25)
+      ORDER BY Name
+      LIMIT 10];
+System.debug(accts.size() + ' account(s) returned.');
+// Write all account array info
+System.debug(accts);
+```
+
+### Accessing Variables in SOQL Queries
+```java
+String targetDepartment = 'Wingo';
+Contact[] techContacts = [SELECT FirstName,LastName 
+                          FROM Contact WHERE Department=:targetDepartment];
+```
+
+### Querying Related Records
+```java
+SELECT Name, (SELECT LastName FROM Contacts) FROM Account WHERE Name = 'SFDC Computing'
+```
+
+### Querying Related Records (inline)
+```java
+Account[] acctsWithContacts = [SELECT Name, (SELECT FirstName,LastName FROM Contacts)
+      FROM Account 
+      WHERE Name = 'SFDC Computing'];
+// Get child records
+Contact[] cts = acctsWithContacts[0].Contacts;
+System.debug('Name of first associated contact: ' + cts[0].FirstName + ', ' + cts[0].LastName);
+```
+
+### Traversing a relationship from child object
+```java
+Contact[] cts = [SELECT Account.Name FROM Contact 
+                 WHERE FirstName = 'Carol' AND LastName='Ruiz'];
+Contact carol = cts[0];
+String acctName = carol.Account.Name;
+System.debug('Carol\'s account name is ' + acctName);
+```
+
+### Querying Record in Batches By Using SOQL For Loops
+```java
+insert new Account[]{new Account(Name = 'for loop 1'), 
+                     new Account(Name = 'for loop 2'), 
+                     new Account(Name = 'for loop 3')};
+// The sObject list format executes the for loop once per returned batch
+// of records
+Integer i=0;
+Integer j=0;
+for (Account[] tmp : [SELECT Id FROM Account WHERE Name LIKE 'for loop _']) {
+    j = tmp.size();
+    i++;
+}
+System.assertEquals(3, j); // The list should have contained the three accounts
+                       // named 'yyy'
+System.assertEquals(1, i); // Since a single batch can hold up to 200 records and,
+                       // only three records should have been returned, the 
+                       // loop should have executed only once
+```
+
