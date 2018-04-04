@@ -31,14 +31,36 @@
 - ID
 - Boolean
 
-## sObject
+### sObject
 - e.g. Account, Contact, or MyCustomObject__c
+- can also be a generic sObject
 
-## Collections
+### Collections
 - List
 - Set
 - Map
 
-## Enum
-## User-defined Apex classes
-## System-supplied Apex classes
+### Enum
+### User-defined Apex classes
+### System-supplied Apex classes
+
+---
+
+## Data Manipulation Language (DML)
+- Create and modify records in Salesforce by using the Data Manipulation Language, abbreviated as DML.
+- DML provides a straightforward way to manage records by providing simple statements to insert, update, merge, delete, and restore records.
+
+### DML Statements
+- insert
+- update
+- upsert
+  - DML operation creates new records and updates sObject records within a single statement, using a specified field to determine the presence of existing objects, or the ID field if no field is specified.
+- delete
+- undelete
+- merge
+  - merges up to three records of the same sObject type into one of the records, deleting the others, and re-parenting any related records.
+
+### Bulk DML
+- You can perform DML operations either on a single sObject, or in bulk on a list of sObjects.
+- Performing bulk DML operations is the recommended way because it helps avoid hitting governor limits, such as the DML limit of 150 statements per Apex transaction.
+
