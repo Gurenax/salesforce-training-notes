@@ -2,6 +2,7 @@
 
 ## References
 - [Apex Basics & Database](https://trailhead.salesforce.com/trails/force_com_dev_beginner/modules/apex_database)
+- [Apex Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.212.0.apexcode.meta/apexcode/apex_dev_guide.htm)
 
 ## What is Apex?
 - Apex is a programming language that uses Java-like syntax and acts like database stored procedures.
