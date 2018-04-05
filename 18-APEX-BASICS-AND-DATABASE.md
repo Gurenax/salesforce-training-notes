@@ -380,3 +380,83 @@ System.assertEquals(1, i); // Since a single batch can hold up to 200 records an
                        // loop should have executed only once
 ```
 
+---
+
+## Salesforce Object Search Language (SOSL)
+- a Salesforce search language that is used to perform text searches in records. Use SOSL to search fields across multiple standard and custom object records in Salesforce. SOSL is similar to Apache Lucene.
+
+### Inline SOSL
+```java
+List<List<SObject>> searchList = [FIND 'SFDC' IN ALL FIELDS 
+                                      RETURNING Account(Name), Contact(FirstName,LastName)];
+```
+
+### SOQL vs SOSL
+- Like SOQL, SOSL allows you to search your organization’s records for specific information.
+- Unlike SOQL, which can only query one standard or custom object at a time, a single SOSL query can search all objects.
+- Another difference is that SOSL matches fields based on a word match while SOQL performs an exact match by default (when not using wildcards). For example, searching for 'Digital' in SOSL returns records whose field values are 'Digital' or 'The Digital Company', but SOQL returns only records with field values of 'Digital'.
+- Use SOQL to retrieve records for a single object.
+- Use SOSL to search fields across multiple objects. SOSL queries can search most text fields on an object.
+
+### Query Editor
+- The Developer Console provides the Query Editor console, which enables you to run SOSL queries and view results. The Query Editor provides a quick way to inspect the database. It is a good way to test your SOSL queries before adding them to your Apex code. When you use the Query Editor, you need to supply only the SOSL statement without the Apex code that surrounds it.
+
+
+### Basic SOSL Syntax
+```java
+FIND 'SearchQuery' [IN SearchGroup] [RETURNING ObjectsAndFields]
+```
+
+- `SearchQuery` is the text to search for (a single word or a phrase). Search terms can be grouped with logical operators (AND, OR) and parentheses. Also, search terms can include wildcard characters (*, ?). The `* wildcard` matches zero or more characters at the middle or end of the search term. The `? wildcard` matches only one character at the middle or end of the search term.
+
+- Text searches are case-insensitive. For example, searching for Customer, customer, or CUSTOMER all return the same results.
+
+- `SearchGroup` is optional. It is the scope of the fields to search. If not specified, the default search scope is all fields. SearchGroup can take one of the following values.
+
+  - ALL FIELDS
+  - NAME FIELDS
+  - EMAIL FIELDS
+  - PHONE FIELDS
+  - SIDEBAR FIELDS
+
+- `ObjectsAndFields` is optional. It is the information to return in the search result — a list of one or more sObjects and, within each sObject, list of one or more fields, with optional values to filter against. If not specified, the search results contain the IDs of all objects found.
+
+
+
+### SOSL Apex Example
+```java
+List<List<sObject>> searchList = [FIND 'Wingo OR SFDC' IN ALL FIELDS 
+                   RETURNING Account(Name),Contact(FirstName,LastName,Department)];
+Account[] searchAccounts = (Account[])searchList[0];
+Contact[] searchContacts = (Contact[])searchList[1];
+System.debug('Found the following accounts.');
+for (Account a : searchAccounts) {
+    System.debug(a.Name);
+}
+System.debug('Found the following contacts.');
+for (Contact c : searchContacts) {
+    System.debug(c.LastName + ', ' + c.FirstName);
+}
+```
+
+
+### SOSL Query with WHERE condition
+`RETURNING Account(Name, Industry WHERE Industry='Apparel')`
+
+### SOSL Query with ORDER BY clause
+`RETURNING Account(Name, Industry ORDER BY Name)`
+
+### SOSL Query with LIMIT clause
+`RETURNING Account(Name, Industry LIMIT 10)`
+
+### Contact and Lead Search Challenge
+```java
+public class ContactAndLeadSearch {
+	public static List<List<sObject>> searchContactsAndLeads(String nameParam) {
+		List<List<sObject>> nameList = [FIND :nameParam IN NAME FIELDS
+																		RETURNING Contact(FirstName,LastName),Lead(Name)];
+		System.debug(nameList);
+		return nameList;
+	}
+}
+```
