@@ -184,3 +184,18 @@ trigger CalloutTrigger on Account (before insert, before update) {
     CalloutClass.makeCallout();
 }
 ```
+
+---
+
+### Match Billing Postal Code challenge
+```java
+trigger AccountAddressTrigger on Account (before insert, before update) {
+    for(Account acct : Trigger.New) {
+    	// If match billing address is checked
+    	if(acct.Match_Billing_Address__c) {
+    		// Set the shipping postal code to be same as billing postal code
+    		acct.ShippingPostalCode = acct.BillingPostalCode;
+    	}
+    }
+}
+```
