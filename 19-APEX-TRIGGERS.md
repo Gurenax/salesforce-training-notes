@@ -112,6 +112,7 @@ trigger ExampleTrigger on Contact (after insert, after delete) {
 ```
 
 ### Adding Related Records from a Trigger
+- This version will be improved later (down below)
 ```java
 trigger AddRelatedRecord on Account(after insert, after update) {
     List<Opportunity> oppList = new List<Opportunity>();
@@ -197,5 +198,189 @@ trigger AccountAddressTrigger on Account (before insert, before update) {
     		acct.ShippingPostalCode = acct.BillingPostalCode;
     	}
     }
+}
+```
+
+---
+
+## Bulk Apex Triggers
+- When you use bulk design patterns, your triggers have better performance, consume less server resources, and are less likely to exceed platform limits.
+
+- The benefit of bulkifying your code is that bulkified code can process large numbers of records efficiently and run within governor limits on the Lightning Platform. These governor limits are in place to ensure that runaway code doesn’t monopolize resources on the multitenant platform.
+
+### Not Bulk
+```java
+trigger MyTriggerNotBulk on Account(before insert) {
+    Account a = Trigger.New[0];
+    a.Description = 'New description';
+}
+```
+
+### Bulk (which is better)
+```java
+trigger MyTriggerBulk on Account(before insert) {
+    for(Account a : Trigger.New) {
+        a.Description = 'New description';
+    }
+}
+```
+
+### Bulk SOQL Queries
+- Use this to avoid Query limits which are 100 SOQL queries for synchronous Apex or 200 for asynchronous Apex.
+
+### Bad Practice
+```java
+trigger SoqlTriggerNotBulk on Account(after update) {   
+    for(Account a : Trigger.New) {
+        // Get child records for each account
+        // Inefficient SOQL query as it runs once for each account!
+        Opportunity[] opps = [SELECT Id,Name,CloseDate 
+                             FROM Opportunity WHERE AccountId=:a.Id];
+        
+        // Do some other processing
+    }
+}
+```
+
+### Good Practice
+- Store to a list first before iteration
+```java
+trigger SoqlTriggerBulk on Account(after update) {  
+    // Perform SOQL query once.    
+    // Get the accounts and their related opportunities.
+    List<Account> acctsWithOpps = 
+        [SELECT Id,(SELECT Id,Name,CloseDate FROM Opportunities) 
+         FROM Account WHERE Id IN :Trigger.New];
+  
+    // Iterate over the returned accounts    
+    for(Account a : acctsWithOpps) { 
+        Opportunity[] relatedOpps = a.Opportunities;  
+        // Do some other processing
+    }
+}
+```
+
+### Alternative, when Account parent records are not needed
+```java
+trigger SoqlTriggerBulk on Account(after update) {  
+    // Perform SOQL query once.    
+    // Get the related opportunities for the accounts in this trigger.
+    List<Opportunity> relatedOpps = [SELECT Id,Name,CloseDate FROM Opportunity
+        WHERE AccountId IN :Trigger.New];
+  
+    // Iterate over the related opportunities    
+    for(Opportunity opp : relatedOpps) { 
+        // Do some other processing
+    }
+}
+```
+
+### Improve the Alternative with a For-loop in one statement
+```java
+trigger SoqlTriggerBulk on Account(after update) {  
+    // Perform SOQL query once.    
+    // Get the related opportunities for the accounts in this trigger,
+    // and iterate over those records.
+    for(Opportunity opp : [SELECT Id,Name,CloseDate FROM Opportunity
+        WHERE AccountId IN :Trigger.New]) {
+  
+        // Do some other processing
+    }
+}
+```
+- Triggers execute on batches of 200 records at a time. So if 400 records cause a trigger to fire, the trigger fires twice, once for each 200 records. For this reason, you don’t get the benefit of SOQL for loop record batching in triggers, because triggers batch up records as well. The SOQL for loop is called twice in this example, but a standalone SOQL query would also be called twice. However, the SOQL for loop still looks more elegant than iterating over a collection variable!
+
+
+### Bulk DML
+- Use this because the Apex runtime allows up to 150 DML calls in one transaction.
+
+### Bad Practice
+```java
+trigger DmlTriggerNotBulk on Account(after update) {   
+    // Get the related opportunities for the accounts in this trigger.        
+    List<Opportunity> relatedOpps = [SELECT Id,Name,Probability FROM Opportunity
+        WHERE AccountId IN :Trigger.New];          
+    // Iterate over the related opportunities
+    for(Opportunity opp : relatedOpps) {      
+        // Update the description when probability is greater 
+        // than 50% but less than 100% 
+        if ((opp.Probability >= 50) && (opp.Probability < 100)) {
+            opp.Description = 'New description for opportunity.';
+            // Update once for each opportunity -- not efficient!
+            update opp;
+        }
+    }    
+}
+```
+
+### Good Practice
+- Store records to a list first before updating. Don't update per record.
+```java
+trigger DmlTriggerBulk on Account(after update) {   
+    // Get the related opportunities for the accounts in this trigger.        
+    List<Opportunity> relatedOpps = [SELECT Id,Name,Probability FROM Opportunity
+        WHERE AccountId IN :Trigger.New];
+          
+    List<Opportunity> oppsToUpdate = new List<Opportunity>();
+    // Iterate over the related opportunities
+    for(Opportunity opp : relatedOpps) {      
+        // Update the description when probability is greater 
+        // than 50% but less than 100% 
+        if ((opp.Probability >= 50) && (opp.Probability < 100)) {
+            opp.Description = 'New description for opportunity.';
+            oppsToUpdate.add(opp);
+        }
+    }
+    
+    // Perform DML on a collection
+    update oppsToUpdate;
+}
+```
+
+### Adding Related Records from a Trigger (IMPROVED)
+- Instead of checking an opportunities list size for each record in the loop, add the condition in the main query.
+```java
+trigger AddRelatedRecord on Account(after insert, after update) {
+    List<Opportunity> oppList = new List<Opportunity>();
+    
+    // Add an opportunity for each account if it doesn't already have one.
+    // Iterate over accounts that are in this trigger but that don't have opportunities.
+    for (Account a : [SELECT Id,Name FROM Account
+                     WHERE Id IN :Trigger.New AND
+                     Id NOT IN (SELECT AccountId FROM Opportunity)]) {
+        // Add a default opportunity for this account
+        oppList.add(new Opportunity(Name=a.Name + ' Opportunity',
+                                   StageName='Prospecting',
+                                   CloseDate=System.today().addMonths(1),
+                                   AccountId=a.Id)); 
+    }
+    
+    if (oppList.size() > 0) {
+        insert oppList;
+    }
+}
+```
+
+---
+
+## Solution to Closed Opportunity Trigger challenge
+```java
+trigger ClosedOpportunityTrigger on Opportunity (after insert, after update) {
+	List<Task> taskList = new List<Task>();
+	
+	// Check Opportunity.StageName if equal to 'Closed Won'
+	for(Opportunity o : [SELECT Id FROM Opportunity
+												WHERE Id IN :Trigger.New
+													AND StageName = 'Closed Won']) {
+			
+		// Create a task with subject 'Follow Up Test Task'
+		// Associate task with Opportunity - Fill the 'WhatId' field with the opportunity ID
+		taskList.add(new Task(Subject = 'Follow Up Test Task',
+													WhatId = o.Id));
+	}
+	
+	if(taskList.size() > 0) {
+		insert taskList;
+	}
 }
 ```
