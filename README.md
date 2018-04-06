@@ -28,4 +28,5 @@
 16. [Formulas & Validations](16-FORMULAS-AND-VALIDATIONS.md)
 17. [Lightning Flow](17-LIGHTNING-FLOW.md)
 18. [Apex Basics & Database](18-APEX-BASICS-AND-DATABASE.md)
-19. [Apex Triggers](19-APEX-TRIGGERS.md)]
+19. [Apex Triggers](19-APEX-TRIGGERS.md)
+20. [Apex Testing](20-APEX-TESTING.md)
