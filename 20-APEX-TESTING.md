@@ -197,3 +197,129 @@ private class TestVerifyDate {
 ---
 
 ## Test Apex Triggers
+- Before deploying a trigger, write unit tests to perform the actions that fire the trigger and verify expected results.
+
+
+### Account Deletion trigger
+- AccountDelation class
+```java
+trigger AccountDeletion on Account (before delete) {
+   
+    // Prevent the deletion of accounts if they have related contacts.
+    for (Account a : [SELECT Id FROM Account
+                     WHERE Id IN (SELECT AccountId FROM Opportunity) AND
+                     Id IN :Trigger.old]) {
+        Trigger.oldMap.get(a.Id).addError(
+            'Cannot delete account with related opportunities.');
+    }
+    
+}
+```
+
+- TestAccountDeletion class
+```java
+@isTest
+private class TestAccountDeletion {
+    @isTest static void TestDeleteAccountWithOneOpportunity() {
+        // Test data setup
+        // Create an account with an opportunity, and then try to delete it
+        Account acct = new Account(Name='Test Account');
+        insert acct;
+        Opportunity opp = new Opportunity(Name=acct.Name + ' Opportunity',
+                                       StageName='Prospecting',
+                                       CloseDate=System.today().addMonths(1),
+                                       AccountId=acct.Id);
+        insert opp;
+        
+        // Perform test
+        Test.startTest();
+        Database.DeleteResult result = Database.delete(acct, false);
+        Test.stopTest();
+        // Verify 
+        // In this case the deletion should have been stopped by the trigger,
+        // so verify that we got back an error.
+        System.assert(!result.isSuccess());
+        System.assert(result.getErrors().size() > 0);
+        System.assertEquals('Cannot delete account with related opportunities.',
+                             result.getErrors()[0].getMessage());
+    }
+    
+}
+```
+
+### `Test.startTest()` and `Test.stopTest()`
+- The test method contains the Test.startTest() and Test.stopTest() method pair, which delimits a block of code that gets a fresh set of governor limits. In this test, test-data setup uses two DML statements before the test is performed. 
+- The `startTest` method marks the point in your test code when your test actually begins. Each test method is allowed to call this method `only once`. All of the code before this method should be used to initialize variables, populate data structures, and so on, allowing you to set up everything you need to run your test. Any code that executes after the call to startTest and before stopTest is assigned a new set of governor limits.
+
+### Restrict Contact By Name Challenge
+- RestrictContactByName class
+```java
+trigger RestrictContactByName on Contact (before insert, before update) {
+	//check contacts prior to insert or update for invalid data
+	For (Contact c : Trigger.New) {
+		if(c.LastName == 'INVALIDNAME') {	//invalidname is invalid
+			
+			// Note: Commented because this not provide data for e.getDmlFields in actual test
+			//c.AddError('The Last Name "'+c.LastName+'" is not allowed for DML');
+			
+			// Fix: e.getDmlFields[0](0) is now Contact.LastName
+			c.LastName.AddError('The Last Name "'+c.LastName+'" is not allowed for DML');
+		}
+
+	}    
+}
+```
+
+- TestRestrictContactByName class
+```java
+@istest private class TestRestrictContactByName {
+	@istest static void CheckInvalidLastName() {
+		// Setup
+		String givenLastName = 'INVALIDNAME';
+		Contact givenContact = new Contact(LastName=givenLastName);
+		
+		// Perform test
+		try {
+			insert givenContact;
+		}
+		catch(DmlException e) {
+			//Assert Error Message
+			System.assert(
+				e.getMessage().contains('The Last Name "'+givenLastName+'" is not allowed for DML'),
+				e.getMessage()
+			);
+						
+			//Assert Field
+	   	System.assertEquals(Contact.LastName, e.getDmlFields(0)[0]);
+			
+			//Assert Status Code
+		  System.assertEquals('FIELD_CUSTOM_VALIDATION_EXCEPTION', e.getDmlStatusCode(0));
+		}
+	}
+	
+	@istest static void CheckValidLastName() {
+		// Setup
+		String givenLastName = 'Smith';
+		Contact givenContact = new Contact(LastName=givenLastName);
+		
+		// Perform test
+		try {
+			Test.startTest();
+			insert givenContact;
+			Contact[] resultContacts = [SELECT LastName FROM Contact WHERE LastName=:givenLastName];
+			Test.stopTest();
+			
+			// Verify
+			System.assertEquals(resultContacts[0].LastName, givenLastName);
+		}
+		catch(DmlException e) {
+			//Assert Error Message
+			System.assert(
+				String.isEmpty(e.getMessage()),
+				e.getMessage()
+			);
+		}
+	}
+}
+```
+
