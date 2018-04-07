@@ -251,7 +251,7 @@ private class TestAccountDeletion {
 - The test method contains the Test.startTest() and Test.stopTest() method pair, which delimits a block of code that gets a fresh set of governor limits. In this test, test-data setup uses two DML statements before the test is performed. 
 - The `startTest` method marks the point in your test code when your test actually begins. Each test method is allowed to call this method `only once`. All of the code before this method should be used to initialize variables, populate data structures, and so on, allowing you to set up everything you need to run your test. Any code that executes after the call to startTest and before stopTest is assigned a new set of governor limits.
 
-### Restrict Contact By Name Challenge
+### Solution to Restrict Contact By Name Challenge
 - RestrictContactByName class
 ```java
 trigger RestrictContactByName on Contact (before insert, before update) {
@@ -322,4 +322,125 @@ trigger RestrictContactByName on Contact (before insert, before update) {
 	}
 }
 ```
+---
 
+## Create Test Data for Apex Tests 
+- Use test utility classes to add reusable methods for test data setup.
+
+### TestDataFactory class
+```java
+@isTest
+public class TestDataFactory {
+    public static List<Account> createAccountsWithOpps(Integer numAccts, Integer numOppsPerAcct) {
+        List<Account> accts = new List<Account>();
+        
+        for(Integer i=0;i<numAccts;i++) {
+            Account a = new Account(Name='TestAccount' + i);
+            accts.add(a);
+        }
+        insert accts;
+        
+        List<Opportunity> opps = new List<Opportunity>();
+        for (Integer j=0;j<numAccts;j++) {
+            Account acct = accts[j];
+            // For each account just inserted, add opportunities
+            for (Integer k=0;k<numOppsPerAcct;k++) {
+                opps.add(new Opportunity(Name=acct.Name + ' Opportunity ' + k,
+                                       StageName='Prospecting',
+                                       CloseDate=System.today().addMonths(1),
+                                       AccountId=acct.Id));
+            }
+        }
+        // Insert all opportunities for all accounts.
+        insert opps;
+        
+        return accts;
+    }
+}
+```
+
+### Modify TestAcccountDeletion class
+```java
+@isTest
+private class TestAccountDeletion {
+    @isTest static void TestDeleteAccountWithOneOpportunity() {
+        // Test data setup
+        // Create one account with one opportunity by calling a utility method	
+        Account[] accts = TestDataFactory.createAccountsWithOpps(1,1);
+        
+        // Perform test
+        Test.startTest();
+        Database.DeleteResult result = Database.delete(accts[0], false);
+        Test.stopTest();
+        // Verify 
+        // In this case the deletion should have been stopped by the trigger,
+        // so verify that we got back an error.
+        System.assert(!result.isSuccess());
+        System.assert(result.getErrors().size() > 0);
+        System.assertEquals('Cannot delete account with related opportunities.',
+                             result.getErrors()[0].getMessage());
+    }
+    
+    @isTest static void TestDeleteAccountWithNoOpportunities() {
+        // Test data setup
+        // Create one account with no opportunities by calling a utility method
+        Account[] accts = TestDataFactory.createAccountsWithOpps(1,0);
+        
+        // Perform test
+        Test.startTest();
+        Database.DeleteResult result = Database.delete(accts[0], false);
+        Test.stopTest();
+        // Verify that the deletion was successful
+        System.assert(result.isSuccess(), result);
+    }
+    
+    @isTest static void TestDeleteBulkAccountsWithOneOpportunity() {
+        // Test data setup
+        // Create accounts with one opportunity each by calling a utility method
+        Account[] accts = TestDataFactory.createAccountsWithOpps(200,1);
+        
+        // Perform test
+        Test.startTest();
+        Database.DeleteResult[] results = Database.delete(accts, false);
+        Test.stopTest();
+        // Verify for each record.
+        // In this case the deletion should have been stopped by the trigger,
+        // so check that we got back an error.
+        for(Database.DeleteResult dr : results) {
+            System.assert(!dr.isSuccess());
+            System.assert(dr.getErrors().size() > 0);
+            System.assertEquals('Cannot delete account with related opportunities.',
+                                 dr.getErrors()[0].getMessage());
+        }
+    }
+    
+    @isTest static void TestDeleteBulkAccountsWithNoOpportunities() {
+        // Test data setup
+        // Create accounts with no opportunities by calling a utility method
+        Account[] accts = TestDataFactory.createAccountsWithOpps(200,0);
+        
+        // Perform test
+        Test.startTest();
+        Database.DeleteResult[] results = Database.delete(accts, false);
+        Test.stopTest();
+        // For each record, verify that the deletion was successful
+        for(Database.DeleteResult dr : results) {
+            System.assert(dr.isSuccess());
+        }
+    }
+    
+}
+```
+
+### Solution to RandomContactFactory challenge
+```java
+public class RandomContactFactory {
+	public static List<Contact> generateRandomContacts(Integer num, String name) {
+		Contact[] contactList = new List<Contact>();
+		for(Integer i=0; i<num; i++) {
+			contactList.add(new Contact(FirstName=name + ' ' + i));
+		}
+		return contactList;
+	}
+}
+```
