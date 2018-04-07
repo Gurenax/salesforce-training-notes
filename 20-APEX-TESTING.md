@@ -74,3 +74,62 @@ private class TemperatureConverterTest {
     }
 }
 ```
+
+## Increase Your Code Coverage
+- When writing tests, try to achieve the highest code coverage possible. Don’t just aim for 75% coverage, which is the lowest coverage that the Lightning Platform platform requires for deployments and packages. 
+
+## Sample TaskUtil Class
+```java
+public class TaskUtil {
+    public static String getTaskPriority(String leadState) {
+        // Validate input
+        if (String.isBlank(leadState) || leadState.length() > 2) {
+            return null;
+        }
+            
+        String taskPriority;
+        
+        if (leadState == 'CA') {
+             taskPriority = 'High'; 
+        } else {
+             taskPriority = 'Normal';
+        }
+        
+        return taskPriority;
+    }
+}
+```
+- Note: The equality operator (==) performs case-insensitive string comparisons, so there is no need to convert the string to lower case first. This means that passing in 'ca' or 'Ca' will satisfy the equality condition with the string literal 'CA'.
+
+## Sample test for TaskUtil
+### Not 100% Coverage
+```java
+@isTest
+private class TaskUtilTest {
+    @isTest static void testTaskPriority() {
+        String pri = TaskUtil.getTaskPriority('NY');
+        System.assertEquals('Normal', pri);
+    }
+}
+```
+
+### 100% Coverage
+```java
+@isTest
+private class TaskUtilTest {
+    @isTest static void testTaskPriority() {
+        String pri = TaskUtil.getTaskPriority('NY');
+        System.assertEquals('Normal', pri);
+    }
+    
+    @isTest static void testTaskHighPriority() {
+        String pri = TaskUtil.getTaskPriority('CA');
+        System.assertEquals('High', pri);
+    }
+    
+    @isTest static void testTaskPriorityInvalid() {
+        String pri = TaskUtil.getTaskPriority('Montana');
+        System.assertEquals(null, pri);
+    }
+}
+```
