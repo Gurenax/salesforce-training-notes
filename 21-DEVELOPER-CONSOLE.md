@@ -141,3 +141,20 @@ em.sendMail('Enter your email address', 'Flight Path Change',
   * FINEST
 
 - To change, Debug | Change Log Levels
+
+---
+
+## Inspect Objects at Checkpoints
+- Checkpoints show you snapshots of what’s happening in your Apex code at particular points during execution.
+
+- You can set checkpoints only when the Apex log level is set to `FINEST`.
+
+### Checkpoint Inspector
+- The Checkpoint Inspector has two tabs: Heap and Symbols.
+  1. `Heap` — Displays all objects present in memory at the line of code where your checkpoint was executed.
+  2. `Symbols` — Displays all symbols in memory in tree view.
+
+---
+
+## Execute SOQL and SOSL Queries 
+- SOQL and SOSL Queries can also be executed using the Anonymous Execute Window, Debug | Open Execute Anonymous Window
