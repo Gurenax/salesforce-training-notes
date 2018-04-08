@@ -31,4 +31,4 @@
 19. [Apex Triggers](19-APEX-TRIGGERS.md)
 20. [Apex Testing](20-APEX-TESTING.md)
 21. [Developer Console](21-DEVELOPER-CONSOLE.md)
-22. [VisualForce Basics](22-VISUAL-FORCE-BASICS.md)
+22. [Visualforce Basics](22-VISUAL-FORCE-BASICS.md)
