@@ -422,3 +422,133 @@ $A.get("e.force:navigateToURL").setParams(
     
 </apex:page>
 ```
+
+---
+
+## Input Data Using Forms
+
+### Create a Basic Form
+- Use `<apex:form>` and `<apex:inputField>` to create a page to edit data. Combine `<apex:commandButton>` with the save action built into the standard controller to create a new record, or save changes to an existing one.
+```html
+<apex:page standardController="Account">
+    
+    <h1>Edit Account</h1>
+    
+    <apex:form>
+    
+        <apex:inputField value="{! Account.Name }"/>
+        
+        <apex:commandButton action="{! save }" value="Save" />
+    
+    </apex:form>
+    
+</apex:page>
+```
+
+### Add Field Labels and Platform Styling
+- When you use input components within `<apex:pageBlock>` and `<apex:pageBlockSection>` tags they adopt the platform visual styling.
+- The `<apex:inputField>` component renders the appropriate input widget based on a standard or custom object field’s type. For example, if you use an `<apex:inputField>` tag to display a date field, a calendar widget displays on the form. If you use an `<apex:inputField>` tag to display a picklist field, as we did here for the industry field, a drop-down list displays instead.
+
+```html
+<apex:page standardController="Account">
+    <apex:form>
+    
+    <apex:pageBlock title="Edit Account">
+		<apex:pageBlockSection columns="1">
+            <apex:inputField value="{! Account.Name }"/>
+            <apex:inputField value="{! Account.Phone }"/>        
+            <apex:inputField value="{! Account.Industry }"/>        
+            <apex:inputField value="{! Account.AnnualRevenue }"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons>
+            <apex:commandButton action="{! save }" value="Save" />        
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+    
+    </apex:form>
+</apex:page>
+```
+
+### Display Form Errors and Messages
+- Use `<apex:pageMessages>` to display any form handling errors or messages.
+
+```html
+<apex:page standardController="Account">
+    <apex:form>
+    
+    <apex:pageBlock title="Edit Account">
+        <apex:pageMessages/>
+		<apex:pageBlockSection columns="1">
+            <apex:inputField value="{! Account.Name }"/>
+            <apex:inputField value="{! Account.Phone }"/>        
+            <apex:inputField value="{! Account.Industry }"/>        
+            <apex:inputField value="{! Account.AnnualRevenue }"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons>
+            <apex:commandButton action="{! save }" value="Save" />        
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+    
+    </apex:form>
+</apex:page>
+```
+
+### Edit Related Records
+- While you can’t save changes to multiple object types in one request with the standard controller, you can make it easier to navigate to related records by offering links that perform actions such as edit or delete on those records.
+```html
+<apex:page standardController="Account">
+    <apex:form>
+    
+    <apex:pageBlock title="Edit Account">
+        <apex:pageMessages/>
+		<apex:pageBlockSection columns="1">
+            <apex:inputField value="{! Account.Name }"/>
+            <apex:inputField value="{! Account.Phone }"/>        
+            <apex:inputField value="{! Account.Industry }"/>        
+            <apex:inputField value="{! Account.AnnualRevenue }"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons>
+            <apex:commandButton action="{! save }" value="Save" />       
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+    <apex:pageBlock title="Contacts">
+        <apex:pageBlockTable value="{!Account.contacts}" var="contact">
+            <apex:column>
+                <apex:outputLink
+                    value="{! URLFOR($Action.Contact.Edit, contact.Id) }">
+                    Edit
+                </apex:outputLink>
+                &nbsp;
+                <apex:outputLink
+                    value="{! URLFOR($Action.Contact.Delete, contact.Id) }">
+                    Del
+                </apex:outputLink>
+            </apex:column>
+            <apex:column value="{!contact.Name}"/>
+            <apex:column value="{!contact.Title}"/>
+            <apex:column value="{!contact.Phone}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>
+```
+
+### Solution to Contact Create challenge
+```html
+<apex:page standardController="Contact">
+    <apex:form>
+    	<apex:pageBlock title="Create Contact">
+            <apex:pageMessages/>
+            <apex:pageBlockSection columns="1">
+                <apex:inputField value="{! Contact.FirstName }" />
+                <apex:inputField value="{! Contact.LastName }" />
+                <apex:inputField value="{! Contact.Email }" />
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons>
+                <apex:commandButton action="{! save }" value="Save" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+```
+
