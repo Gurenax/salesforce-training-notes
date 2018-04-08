@@ -95,3 +95,133 @@
 </apex:page>
 ```
 
+
+---
+
+## Global Variables and Visualforce Expressions
+- Visualforce pages can display data retrieved from the database or web services, data that changes depending on who is logged on and viewing the page, and so on. This dynamic data is accessed in markup through the use of global variables, calculations, and properties made available by the page’s controller.
+
+- Together these are described generally as `Visualforce expressions`. Use expressions for dynamic output or passing values into components by assigning them to attributes.
+
+### Visualforce Expressions
+- A Visualforce expression is any set of literal values, variables, sub-expressions, or operators that can be resolved to a single value. Method calls aren’t allowed in expressions.
+
+- The expression syntax in Visualforce is: `{! expression }`
+
+- Anything inside the `{! }` delimiters is evaluated and dynamically replaced when the page is rendered or when the value is used. Whitespace is ignored.
+
+- The resulting value can be a primitive (integer, string, and so on), a Boolean, an sObject, a controller method such as an action method, and other useful results.
+
+
+### Global Variables
+- Use global variables to access and display system values and resources in your Visualforce markup.
+
+- For example, Visualforce provides information about the logged-in user in a global variable called `$User`. You can access fields of the $User global variable (and any others) using an expression of the following form: `{! $GlobalName.fieldName }`.
+
+
+### Sample visualforce expressions with global variables
+```html
+<apex:page>
+    
+    <apex:pageBlock title="User Status">
+        <apex:pageBlockSection columns="1">
+            
+            {! $User.FirstName } {! $User.LastName } 
+           ({! $User.Username })
+            
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+</apex:page>
+```
+
+### Formula Expressions
+- Visualforce lets you use more than just global variables in the expression language. It also supports formulas that let you manipulate values.
+
+- For example, the `&` character is the formula language operator that concatenates strings.
+
+- Sample snippets
+```html
+{! $User.FirstName & ' ' & $User.LastName }
+```
+
+```html
+<p> Today's Date is {! TODAY() } </p>
+<p> Next week it will be {! TODAY() + 7 } </p>
+```
+
+```html
+Today's Date is Thu Sep 18 00:00:00 GMT 2014
+Next week it will be Thu Sep 25 00:00:00 GMT 2014
+```
+
+```html
+<p>The year today is {! YEAR(TODAY()) }</p>
+<p>Tomorrow will be day number  {! DAY(TODAY() + 1) }</p>
+<p>Let's find a maximum: {! MAX(1,2,3,4,5,6,5,4,3,2,1) } </p>
+<p>The square root of 49 is {! SQRT(49) }</p>
+<p>Is it true?  {! CONTAINS('salesforce.com', 'force.com') }</p>
+```
+
+- UserStatus page so far
+```html
+<apex:page>
+    
+    <apex:pageBlock title="User Status">
+        <apex:pageBlockSection columns="1">
+            
+            {! $User.FirstName & ' ' & $User.LastName }
+           ({! $User.Username })
+            
+            <p>The year today is {! YEAR(TODAY()) }</p>
+            <p>Tomorrow will be day number  {! DAY(TODAY() + 1) }</p>
+            <p>Let's find a maximum: {! MAX(1,2,3,4,5,6,5,4,3,2,1) } </p>
+            <p>The square root of 49 is {! SQRT(49) }</p>
+            <p>Is it true?  {! CONTAINS('salesforce.com', 'force.com') }</p>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+</apex:page>
+```
+
+### Conditional Expressions
+- Use a `conditional expression` to display different information based on the value of the expression.
+
+- You can do this in Visualforce by using a conditional formula expression, such as `IF()`. The `IF()` expression takes three arguments:
+
+- Sample snippets
+```html
+<p>{! IF( CONTAINS('salesforce.com','force.com'), 
+     'Yep', 'Nope') }</p>
+<p>{! IF( DAY(TODAY()) < 15, 
+     'Before the 15th', 'The 15th or after') }</p>
+```
+
+```html
+({! IF($User.isActive, $User.Username, 'inactive') })
+```
+
+- UserStatus page so far
+```html
+<apex:page>
+    
+    <apex:pageBlock title="User Status">
+        <apex:pageBlockSection columns="1">
+            
+            {! $User.FirstName & ' ' & $User.LastName }
+           ({! IF($User.isActive, $User.Username, 'inactive') })
+            
+            <p>The year today is {! YEAR(TODAY()) }</p>
+            <p>Tomorrow will be day number  {! DAY(TODAY() + 1) }</p>
+            <p>Let's find a maximum: {! MAX(1,2,3,4,5,6,5,4,3,2,1) } </p>
+            <p>The square root of 49 is {! SQRT(49) }</p>
+            <p>Is it true?  {! CONTAINS('salesforce.com', 'force.com') }</p>
+            <p>{! IF( CONTAINS('salesforce.com','force.com'), 
+                'Yep', 'Nope') }</p>
+            <p>{! IF( DAY(TODAY()) < 15, 
+                'Before the 15th', 'The 15th or after') }</p>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+</apex:page>
+```
