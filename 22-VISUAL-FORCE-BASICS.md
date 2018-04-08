@@ -225,3 +225,86 @@ Next week it will be Thu Sep 25 00:00:00 GMT 2014
     
 </apex:page>
 ```
+
+### Solution to global variables challenge
+```html
+<apex:page >
+    <apex:pageBlock title="User Status">
+        <apex:pageBlockSection columns="1">
+            <apex:pageBlockSectionItem>
+            	<p>
+                    {! $User.FirstName & ' ' & $User.LastName }
+                    ({! IF($User.isActive, $User.Username, 'inactive') })
+                </p>
+                <p>
+                    First Name: {! $User.FirstName }
+                </p>
+                <p>
+                    Last Name: {! $User.LastName }
+                </p>
+				<p>
+                    Alias: {! $User.Alias }
+                </p>
+                <p>
+                    Company: {!$User.CompanyName}
+                </p>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>
+```
+
+---
+
+## Visualforce Standard Controller
+- Visualforce uses the traditional `model–view–controller (MVC) paradigm`, and includes sophisticated built-in controllers to handle standard actions and data access, providing simple and tight integration with the Lightning Platform database. These built-in controllers are referred to generally as `standard controllers`, or even `the` standard controller.
+
+### JavaScript to open a Visualforce page from a standard page
+- using browser console
+```javascript
+$A.get("e.force:navigateToURL").setParams(
+    {"url": "/apex/pageName?&id=<ID of Object e.g. Account>"}).fire();
+```
+
+### Sample Account Summary
+```html
+<apex:page standardController="Account">
+    
+    <apex:pageBlock title="Account Summary">
+        <apex:pageBlockSection>
+        	
+            Name: {! Account.Name } <br/>
+            Phone: {! Account.Phone } <br/>
+            Industry: {! Account.Industry } <br/>
+            Revenue: {! Account.AnnualRevenue } <br/>
+            
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+</apex:page>
+```
+
+- Append `id` in URL as such:
+`https://<salesforce-instance>/apex/AccountSummary?core.apexpages.request.devconsole=1&id=<id of an account>`
+
+
+### Solution to Contact View Challenge
+```html
+<apex:page standardController="Contact">
+    
+    <apex:pageBlock title="Contact Summary">
+        <apex:pageBlockSection>
+        	
+            First Name: {! Contact.FirstName } <br/>
+            Last Name: {! Contact.LastName } <br/>
+            Owner Email: {! Contact.Owner.Email } <br/>
+
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+</apex:page>
+```
+
+---
+
+## Display Records, Fields, and Tables 
