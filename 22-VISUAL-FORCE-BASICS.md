@@ -552,3 +552,147 @@ $A.get("e.force:navigateToURL").setParams(
 </apex:page>
 ```
 
+---
+
+## Standard List Controller
+- The standard list controller allows you to create Visualforce pages that can display or act on a set of records.
+
+### Display a List of Records
+- Use the standard list controller and an iteration component, such as `<apex:pageBlockTable>`, to display a list of records.
+
+```html
+<apex:page standardController="Contact" recordSetVar="contacts">
+    <apex:pageBlock title="Contacts List">
+        
+        <!-- Contacts List -->
+        <apex:pageBlockTable value="{! contacts }" var="ct">
+            <apex:column value="{! ct.FirstName }"/>
+            <apex:column value="{! ct.LastName }"/>
+            <apex:column value="{! ct.Email }"/>
+            <apex:column value="{! ct.Account.Name }"/>
+        </apex:pageBlockTable>
+        
+    </apex:pageBlock>
+</apex:page>
+```
+- `recordSetVar` by convention is usually named the plural of the object name.
+- `<apex:pageBlockTable>` is an iteration component that generates a table of data, complete with platform styling. Here’s what’s going on in the table markup.
+- There are other iteration components such as `<apex:dataList>` and `<apex:repeat>`.
+
+### Add List View Filtering to the List
+- Use `{! listViewOptions }` to get a list of list view filters available for an object.
+- Use `{! filterId }` to set the list view filter to use for a standard list controller’s results.
+
+```html
+<apex:page standardController="Contact" recordSetVar="contacts">
+    <apex:form>
+        <apex:pageBlock title="Contacts List" id="contacts_list">
+        
+            Filter: 
+            <apex:selectList value="{! filterId }" size="1">
+                <apex:selectOptions value="{! listViewOptions }"/>
+                <apex:actionSupport event="onchange" reRender="contacts_list"/>
+            </apex:selectList>
+            <!-- Contacts List -->
+            <apex:pageBlockTable value="{! contacts }" var="ct">
+                <apex:column value="{! ct.FirstName }"/>
+                <apex:column value="{! ct.LastName }"/>
+                <apex:column value="{! ct.Email }"/>
+                <apex:column value="{! ct.Account.Name }"/>
+            </apex:pageBlockTable>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+```
+- `<apex:actionSupport event="onchange" reRender="contacts_list"/>` reloads the `contacts_list` page block without reloading the entire page.
+
+
+### Add Pagination to the List
+- Use the pagination features of the standard list controller to allow users to look at long lists of records one “page” at a time.
+
+```html
+<apex:page standardController="Contact" recordSetVar="contacts">
+    <apex:form>
+        <apex:pageBlock title="Contacts List" id="contacts_list">
+        
+            Filter: 
+            <apex:selectList value="{! filterId }" size="1">
+                <apex:selectOptions value="{! listViewOptions }"/>
+                <apex:actionSupport event="onchange" reRender="contacts_list"/>
+            </apex:selectList>
+            <!-- Contacts List -->
+            <apex:pageBlockTable value="{! contacts }" var="ct">
+                <apex:column value="{! ct.FirstName }"/>
+                <apex:column value="{! ct.LastName }"/>
+                <apex:column value="{! ct.Email }"/>
+                <apex:column value="{! ct.Account.Name }"/>
+            </apex:pageBlockTable>
+            
+            <!-- Pagination -->
+            <table style="width: 100%"><tr>
+                <td>
+                    <!-- Page X of Y -->
+                    Page: <apex:outputText 
+                        value=" {!PageNumber} of {! CEILING(ResultSize / PageSize) }"/>
+                </td>            
+                <td align="center">
+                    <!-- Previous page -->
+                    <!-- active -->
+                    <apex:commandLink action="{! Previous }" value="« Previous"
+                         rendered="{! HasPrevious }"/>
+                    <!-- inactive (no earlier pages) -->
+                    <apex:outputText style="color: #ccc;" value="« Previous"
+                         rendered="{! NOT(HasPrevious) }"/>
+
+                    &nbsp;&nbsp;  
+                    <!-- Next page -->
+                    <!-- active -->
+                    <apex:commandLink action="{! Next }" value="Next »"
+                         rendered="{! HasNext }"/>
+                    <!-- inactive (no more pages) -->
+                    <apex:outputText style="color: #ccc;" value="Next »"
+                         rendered="{! NOT(HasNext) }"/>
+                </td>
+                
+                <td align="right">
+                    <!-- Records per page -->
+                    Records per page:
+                    <apex:selectList value="{! PageSize }" size="1">
+                        <apex:selectOption itemValue="5" itemLabel="5"/>
+                        <apex:selectOption itemValue="20" itemLabel="20"/>
+                        <apex:actionSupport event="onchange" reRender="contacts_list"/>
+                    </apex:selectList>
+                </td>
+            </tr></table>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+```
+- In the progress indicator, three properties are used to indicate how many pages there are: `PageNumber`, `ResultSize`, and `PageSize`.
+- The page markup is referencing Boolean properties provided by the standard list controller, `HasPrevious` and `HasNext`, which let you know if there are more records in a given direction or not. 
+- The records per page selection menu uses an `<apex:selectList>`.
+- Aside from `Previous` and `Next`, there are also `First` and `Last` actions for pagination.
+
+
+### Solution to Account Record Detail challenge
+```html
+<apex:page standardController="Account" recordSetVar="accounts">
+    <apex:form>
+        <apex:pageBlock title="Accounts List" id="accounts_list">
+            Filter: 
+            <apex:selectList value="{! filterId }" size="1">
+                <apex:selectOptions value="{! listViewOptions }"/>
+                <apex:actionSupport event="onchange" reRender="accounts_list"/>
+            </apex:selectList>
+            <apex:repeat value="{! accounts }" var="a">
+                <li>
+                    <apex:outputLink value="/{!a.id}">
+                        {! a.name }
+                    </apex:outputLink>
+                </li>
+            </apex:repeat>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+```
