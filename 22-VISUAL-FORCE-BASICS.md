@@ -308,3 +308,117 @@ $A.get("e.force:navigateToURL").setParams(
 ---
 
 ## Display Records, Fields, and Tables 
+
+### Output Components
+- Components that output data from a record and enable you to design a view-only user interface.
+
+- Visualforce includes nearly 150 built-in components that you can use on your pages. Components are rendered into HTML, CSS, and JavaScript when a page is requested.
+
+  - `Coarse-grained components` provide a significant amount of functionality in a single component, and might add a lot of information and user interface to the page it’s used on.
+
+  -  `Fine-grained components` provide more focused functionality, and enable you to design the page to look and behave the way you want.
+
+
+### Display Record Details
+```html
+<apex:page standardController="Account">
+    
+    <apex:detail />
+    
+</apex:page>
+```
+
+- `<apex:detail>` is a coarse-grained output component that adds many fields, sections, buttons, and other user interface elements to the page in just one line of markup.
+
+
+### Display Related Lists
+```html
+<apex:page standardController="Account">
+    
+    <apex:detail relatedList="false" />
+    <apex:relatedList list="Contacts"/>
+	  <apex:relatedList list="Opportunities" pageSize="5"/>
+
+</apex:page>
+```
+
+- `relatedList="false"` removes the default related lists sections
+- `<apex:relatedList>` adds specific related lists sections
+- Use higher level components when they offer the functionality you need, and use lower level components when you need more control over what’s displayed on the page.
+
+
+### Display Individual Fields
+- Replacing `<apex:detail>` with specific fields wrapped in page block and page block section.
+```html
+<apex:page standardController="Account">
+    
+	<apex:pageBlock title="Account Details">
+      <apex:pageBlockSection>
+          <apex:outputField value="{! Account.Name }"/>
+          <apex:outputField value="{! Account.Phone }"/>
+          <apex:outputField value="{! Account.Industry }"/>
+          <apex:outputField value="{! Account.AnnualRevenue }"/>
+      </apex:pageBlockSection>
+  </apex:pageBlock>
+
+  <apex:relatedList list="Contacts"/>
+	<apex:relatedList list="Opportunities" pageSize="5"/>
+
+</apex:page>
+```
+
+### Display a Table
+- `<apex:pageBlockTable>` is an iteration component that generates a table of data, complete with platform styling. Here’s what’s going on in your markup.
+- An `iteration component` works with a collection of similar items, instead of on a single value.
+
+```html
+<apex:page standardController="Account">
+    
+	<apex:pageBlock title="Account Details">
+        <apex:pageBlockSection>
+            <apex:outputField value="{! Account.Name }"/>
+            <apex:outputField value="{! Account.Phone }"/>
+            <apex:outputField value="{! Account.Industry }"/>
+            <apex:outputField value="{! Account.AnnualRevenue }"/>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+
+	<apex:pageBlock title="Contacts">
+       <apex:pageBlockTable value="{!Account.contacts}" var="contact">
+          <apex:column value="{!contact.Name}"/>
+          <apex:column value="{!contact.Title}"/>
+          <apex:column value="{!contact.Phone}"/>
+       </apex:pageBlockTable>
+    </apex:pageBlock>
+
+    <apex:pageBlock title="Opportunities">
+       <apex:pageBlockTable value="{!Account.opportunities}" var="opportunity">
+          <apex:column value="{!opportunity.Name}"/>
+          <apex:column value="{!opportunity.CloseDate}"/>
+          <apex:column value="{!opportunity.StageName}"/>
+       </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>
+```
+
+- Replaced `<apex:relatedList>` with specific fields using page block table and columns wrapped in page blocks.
+
+
+### Coarse-grained vs Fine-grained
+- `Coarse-grained components` let you quickly add lots of functionality to a page, while `Fine-grained components` give you more control over the specific details of a page.
+
+### Solution to Opportunity View challenge
+```html
+<apex:page standardController="Opportunity">
+    
+    <apex:pageBlock title="Opportunity Summary">
+        <apex:pageBlockSection>
+			<apex:outputField value="{! Opportunity.Name }"/>
+            <apex:outputField value="{! Opportunity.Amount }"/>
+            <apex:outputField value="{! Opportunity.CloseDate }"/>
+            <apex:outputField value="{! Opportunity.Account.Name }"/>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+</apex:page>
+```
