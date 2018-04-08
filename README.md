@@ -38,4 +38,4 @@
 - [Object Reference for Salesforce and Force.com](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_list.htm)
 - [Standard Component Reference for Visualforce](https://developer.salesforce.com/docs/atlas.en-us.212.0.pages.meta/pages/pages_compref.htm)
 - [Global Variables for Visualforce](https://developer.salesforce.com/docs/atlas.en-us.212.0.pages.meta/pages/pages_variables_global.htm)
-
+- [Functions for Visualforce](https://developer.salesforce.com/docs/atlas.en-us.212.0.pages.meta/pages/pages_variables_functions.htm)
