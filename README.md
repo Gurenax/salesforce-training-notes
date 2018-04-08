@@ -2,7 +2,7 @@
 - As a salesforce professional, this is my journey as I transition into this new ecosystem.
 - I found it really helpful to keep notes and save links to useful trailhead content.
 - I believe this can be very useful during implementation as it saves you time from plowing through trailhead content.
-- I hope this can be useful to someone else and not just me.
+- I hope this can be useful to someone else!
 
 ## Contents
 ### CRM Essentials
@@ -32,3 +32,10 @@
 20. [Apex Testing](20-APEX-TESTING.md)
 21. [Developer Console](21-DEVELOPER-CONSOLE.md)
 22. [Visualforce Basics](22-VISUAL-FORCE-BASICS.md)
+
+
+## Useful References
+- [Object Reference for Salesforce and Force.com](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_list.htm)
+- [Standard Component Reference for Visualforce](https://developer.salesforce.com/docs/atlas.en-us.212.0.pages.meta/pages/pages_compref.htm)
+- [Global Variables for Visualforce](https://developer.salesforce.com/docs/atlas.en-us.212.0.pages.meta/pages/pages_variables_global.htm)
+
