@@ -41,6 +41,10 @@
 27. [Use Bulk API](27-USE-BULK-API.md)
 28. [Use Streaming API](28-USE-STREAMING-API.md)
 
+### Setting up OAuth for APIs
+29. [Guide to Setting up Salesforce OAuth](29-GUIDE-TO-SETUP-SALESFORCE-OAUTH.md)
+
+
 ## Useful References
 - [Object Reference for Salesforce and Force.com](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_list.htm)
 - [Standard Component Reference for Visualforce](https://developer.salesforce.com/docs/atlas.en-us.212.0.pages.meta/pages/pages_compref.htm)
