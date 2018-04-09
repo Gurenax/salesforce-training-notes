@@ -32,7 +32,7 @@
 20. [Apex Testing](20-APEX-TESTING.md)
 21. [Developer Console](21-DEVELOPER-CONSOLE.md)
 22. [Visualforce Basics](22-VISUAL-FORCE-BASICS.md)
-
+23. [Search Solution Basics](23-SEARCH-SOLUTION-BASICS.md)
 
 ## Useful References
 - [Object Reference for Salesforce and Force.com](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_list.htm)
@@ -42,3 +42,5 @@
 - [Expression Operators for Visualforce](https://developer.salesforce.com/docs/atlas.en-us.212.0.pages.meta/pages/pages_variables_operators.htm)
 - [Using Bootstrap with Visualforce](https://github.com/sready/bootstrap-visualforce-101)
 - [Custom Controllers and Controller Extensions](https://developer.salesforce.com/docs/atlas.en-us.212.0.pages.meta/pages/pages_controller.htm)
+- [REST API Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.212.0.api_rest.meta/api_rest/intro_what_is_rest_api.htm)
+
