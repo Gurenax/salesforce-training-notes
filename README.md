@@ -36,6 +36,9 @@
 
 ### API Basics
 24. [API Basics](24-API-BASICS.md)
+25. [Use REST API](25-USE-REST-API.md)
+26. [Use SOAP API](26-USE-SOAP-API.md)
+27. [Use Bulk API](27-USE-BULK-API.md)
 
 ## Useful References
 - [Object Reference for Salesforce and Force.com](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_list.htm)
