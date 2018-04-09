@@ -34,6 +34,9 @@
 22. [Visualforce Basics](22-VISUAL-FORCE-BASICS.md)
 23. [Search Solution Basics](23-SEARCH-SOLUTION-BASICS.md)
 
+### API Basics
+24. [API Basics](24-API-BASICS.md)
+
 ## Useful References
 - [Object Reference for Salesforce and Force.com](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_list.htm)
 - [Standard Component Reference for Visualforce](https://developer.salesforce.com/docs/atlas.en-us.212.0.pages.meta/pages/pages_compref.htm)
