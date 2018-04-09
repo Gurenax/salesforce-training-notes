@@ -696,3 +696,88 @@ $A.get("e.force:navigateToURL").setParams(
     </apex:form>
 </apex:page>
 ```
+
+---
+
+## Static Resources
+- Static resources allow you to upload content that you can reference in a Visualforce page. Resources can be archives (such as .zip and .jar files), images, stylesheets, JavaScript, and other files.
+
+- Static resources are managed and distributed by Lightning Platform, which acts as a content distribution network (CDN) for the files. Caching and distribution are handled automatically.
+
+- Static resources are referenced using the `$Resource` global variable, which can be used directly by Visualforce, or used as a parameter to functions such as `URLFOR()`.
+
+### Create and Upload a Simple Static Resource
+- Setup | Static Resources | New
+- e.g. Name as `JQuery`
+- Cache Control should be Public
+
+
+### Add a Static Resource to a Visualforce Page
+```html
+<apex:page>
+    
+    <!-- Add the static resource to page's <head> -->
+    <apex:includeScript value="{! $Resource.jQuery }"/>
+    
+    <!-- A short bit of jQuery to test it's there -->
+    <script type="text/javascript">
+        jQuery.noConflict();
+        jQuery(document).ready(function() {
+            jQuery("#message").html("Hello from jQuery!");
+        });
+    </script>
+    
+    <!-- Where the jQuery message will appear -->
+    <h1 id="message"></h1>
+    
+</apex:page>
+```
+
+### Create and Upload a Zipped Static Resource
+- Create zipped static resources to group together related files that are usually updated together.
+- Setup | Static Resources | New
+- e.g. Name as `jQueryMobile`
+- Cache Control should be Public
+- Zip file limit is 5MB (i.e. for jQueryMobile, unzip and remove the demos folder then zip it again)
+
+### Add Zipped Static Resources to a Visualforce Page
+```html
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false">
+    
+    <!-- Add static resources to page's <head> -->
+    <apex:stylesheet value="{!
+          URLFOR($Resource.jQueryMobile,'jquery.mobile-1.4.5/jquery.mobile-1.4.5.css')}"/>
+    <apex:includeScript value="{! $Resource.jQuery }"/>
+    <apex:includeScript value="{!
+         URLFOR($Resource.jQueryMobile,'jquery.mobile-1.4.5/jquery.mobile-1.4.5.js')}"/>
+    <div style="margin-left: auto; margin-right: auto; width: 50%">
+        <!-- Display images directly referenced in a static resource -->
+        <h3>Images</h3>
+        <p>A hidden message:
+            <apex:image alt="eye" title="eye"
+                 url="{!URLFOR($Resource.jQueryMobile, 'jquery.mobile-1.4.5/images/icons-png/eye-black.png')}"/>
+            <apex:image alt="heart" title="heart"
+                 url="{!URLFOR($Resource.jQueryMobile, 'jquery.mobile-1.4.5/images/icons-png/heart-black.png')}"/>
+            <apex:image alt="cloud" title="cloud"
+                 url="{!URLFOR($Resource.jQueryMobile, 'jquery.mobile-1.4.5/images/icons-png/cloud-black.png')}"/>
+        </p>
+    <!-- Display images referenced by CSS styles,
+         all from a static resource. -->
+    <h3>Background Images on Buttons</h3>
+    <button class="ui-btn ui-shadow ui-corner-all
+         ui-btn-icon-left ui-icon-action">action</button>
+    <button class="ui-btn ui-shadow ui-corner-all
+         ui-btn-icon-left ui-icon-star">star</button>
+    </div>
+</apex:page>
+```
+- Use the `$Resource` global variable and the `URLFOR()` function to reference items within a zipped static resource.
+- The `URLFOR()` function can combine a reference to a zipped static resource and a relative path to an item within it to create a URL that can be used with Visualforce components that reference static assets. For example, `URLFOR($Resource.jQueryMobile, 'images/icons-png/cloud-black.png')` returns a URL to a specific graphic asset within the zipped static resource, which can be used by the `<apex:image>` component. You can construct similar URLs for JavaScript and stylesheet files for the `<apex:includeScript>` and `<apex:stylesheet>` components.
+
+### Solution to static resource challenge
+```html
+<apex:page >
+    <apex:image url="{!URLFOR($Resource.vfimagetest, 'cats/kitten1.jpg')}" />
+</apex:page>
+```
+
