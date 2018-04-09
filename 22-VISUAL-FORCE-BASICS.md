@@ -781,3 +781,177 @@ $A.get("e.force:navigateToURL").setParams(
 </apex:page>
 ```
 
+---
+
+## Custom Controllers
+- Custom controllers contain custom logic and data manipulation that can be used by a Visualforce page. For example, a custom controller can retrieve a list of items to be displayed, make a callout to an external web service, validate and insert data, and more—and all of these operations will be available to the Visualforce page that uses it as a controller.
+
+- Used when you want to override existing functionality, customize the navigation through an application, use callouts or Web services, or if you need finer control for how information is accessed for your page.
+
+
+### Create a Custom Controller Apex Class
+```java
+public class ContactsListController {
+    // Controller code goes here
+}
+```
+
+### Create a Visualforce Page that Uses a Custom Controller
+```html
+<apex:page controller="ContactsListController">
+    <apex:form>
+        <apex:pageBlock title="Contacts List" id="contacts_list">
+            
+            <!-- Contacts List goes here -->
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+```
+
+
+### Add a Method to Retrieve Records
+- Apex Class
+```java
+public class ContactsListController {
+	private String sortOrder = 'LastName';
+        
+    public List<Contact> getContacts() {
+        
+        List<Contact> results = Database.query(
+            'SELECT Id, FirstName, LastName, Title, Email ' +
+            'FROM Contact ' +
+            'ORDER BY ' + sortOrder + ' ASC ' +
+            'LIMIT 10'
+        );
+        return results;
+    }
+}
+```
+- Visualforce Page
+```html
+<apex:page controller="ContactsListController">
+    <apex:form>
+        <apex:pageBlock title="Contacts List" id="contacts_list">
+            
+            <!-- Contacts List -->
+            <apex:pageBlockTable value="{! contacts }" var="ct">
+                <apex:column value="{! ct.FirstName }"/>
+                <apex:column value="{! ct.LastName }"/>
+                <apex:column value="{! ct.Title }"/>
+                <apex:column value="{! ct.Email }"/>
+                
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+```
+
+- Any getter method (i.e. `getSomething()` ) is translated to a `{! something }` variable.
+- As such, when happens when the `{! contacts }` expression is evaluated, that expression calls the `getContacts()` method. That method returns a List of contact records, which is exactly what the `<apex:pageBlockTable>` is expecting.
+
+
+### Add a New Action Method
+- Create action methods in your custom controller to respond to user input on the page.
+
+- Apex Class
+```java
+public class ContactsListController {
+	private String sortOrder = 'LastName';
+        
+    public List<Contact> getContacts() {
+        
+        List<Contact> results = Database.query(
+            'SELECT Id, FirstName, LastName, Title, Email ' +
+            'FROM Contact ' +
+            'ORDER BY ' + sortOrder + ' ASC ' +
+            'LIMIT 10'
+        );
+        return results;
+    }
+    
+    public void sortByLastName() {
+        this.sortOrder = 'LastName';
+    }
+        
+    public void sortByFirstName() {
+        this.sortOrder = 'FirstName';
+    }
+}
+```
+
+- Visualforce Page
+```html
+<apex:page controller="ContactsListController">
+    <apex:form>
+        <apex:pageBlock title="Contacts List" id="contacts_list">
+            
+            <!-- Contacts List -->
+            <apex:pageBlockTable value="{! contacts }" var="ct">
+                <apex:column value="{! ct.FirstName }">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{! sortByFirstName }" 
+                            reRender="contacts_list">First Name
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+                <apex:column value="{! ct.LastName }">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{! sortByLastName }" 
+                            reRender="contacts_list">Last Name
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+                <apex:column value="{! ct.Title }"/>
+                <apex:column value="{! ct.Email }"/>
+                
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+```
+- `<apex:facet>` lets us set the contents of the column header to whatever we want.
+-  The link is created using the `<apex:commandLink>` component, with the `action` attribute set to an expression that references the action method in our controller.
+- The attribute `reRender="contacts_list"` will reload the `contacts_list` page block.
+
+
+### Field Labels which support Internationalization
+- Instead of hard coding the header text for 'First Name' or 'Last Name', use the following syntax:
+```html
+<apex:outputText value="{! $ObjectType.Contact.Fields.FirstName.Label }"/>
+```
+- This syntax will automatically translate the header text into whichever language the org is using.
+
+
+### Alternative way to declare Apex properties as getters/setters
+```java
+public MyObject__c myVariable { get; set; }
+```
+
+### Solution to New Case List Controller Challenge
+- Apex Class
+```java
+public class NewCaseListController {
+    public List<Case> getNewCases() {
+        String newStatus = 'New';
+        List<Case> results = Database.query(
+            'SELECT Id, CaseNumber ' +
+            'FROM Case ' +
+            'WHERE Status=:newStatus'
+        );
+        return results;
+    }
+}
+```
+
+- Visualforce Page
+```html
+<apex:page controller="NewCaseListController">
+    <apex:repeat value="{! newCases }" var="case">
+        <li>
+            <apex:outputLink value="/{! case.id }">
+                {! case.ID }
+            </apex:outputLink>
+        </li>
+    </apex:repeat>
+</apex:page>
+```
