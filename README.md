@@ -44,6 +44,10 @@
 ### Setting up OAuth for APIs
 29. [Guide to Setting up Salesforce OAuth](29-GUIDE-TO-SETUP-SALESFORCE-OAUTH.md)
 
+### Lightning Experience
+30. [User Management](30-USER-MANAGEMENT.md)
+31. [Lightning Experience Chatter Basics for Admins](31-LIGHTNING-EXPERIENECE-CHATTER-BASICS.md)
+
 
 ## Useful References
 - [Object Reference for Salesforce and Force.com](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_list.htm)
