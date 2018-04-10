@@ -1,5 +1,8 @@
 # User Management
 
+## Reference
+- [User Management](https://trailhead.salesforce.com/trails/lex_admin_implementation/modules/lex_implementation_user_setup_mgmt)
+
 ## Key Terms
 ### Username
 - Each user has both a username and an email address.
