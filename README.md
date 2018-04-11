@@ -51,6 +51,9 @@
 ### Lightning Experience - Development 
 32. [Lightning Apps](32-LIGHTNING-APPS.md)
 33. [Lightning App Builder](33-LIGHTNING-APP-BUILDER.md)
+34. [Lightning Components Basics](34-LIGHTNING-COMPONENTS-BASICS.md)
+35. [Create and Edit Lightning Components](35-LIGHTNING-COMPONENTS-CREATE-EDIT.md)
+
 
 ## Useful References
 - [Object Reference for Salesforce and Force.com](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_list.htm)
