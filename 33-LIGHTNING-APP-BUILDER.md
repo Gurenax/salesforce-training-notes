@@ -30,13 +30,29 @@
 
 ## Lightning Page Types
 1. App Page
-- Use an app page to create a home page for a third-party app that you can add directly into the Salesforce mobile app and Lightning Experience navigation menus. Your users then have an app home page where they can quickly access the most important objects and items.
+- A single page app that has access to the user's most importand objects/items (e.g. dashboards, recent items).
 
 2. Home Page
-- Create Home pages with features relevant to specific types of users, and assign the customized pages to different user profiles. Custom Home pages are supported in Lightning Experience only.
+- An app that is similar to the salesforce Home Page.
 
 3. Record Page
-- With a record page, you can create a customized version of an object’s record page, tailoring it to your users’ needs. Custom record pages are supported in Lightning Experience only.
+- An app that is simiar to salesforce record pages (e.g. Opportunities, Leads).
 
 ---
+
+## Create a Custom Home Page
+- Go to `Setup | App Builder | Lightning App Builder | New | Home Page`
+
+## Create a Custom Lightning Record Page
+- Go to `Setup | App Builder | Lightning App Builder | New | Record Page`
+
+## Create an App Page
+- Go to `Setup | App Builder | Lightning App Builder | New | App Page`
+
+---
+
+## Custom Lightning Components
+- Custom Lightning components don’t automatically work on Lightning pages or in the Lightning App Builder. To make a custom component usable in both, you need to:
+  1. Configure the component and its component bundle so that they’re compatible with the Lightning App Builder and Lightning pages.
+  2. Deploy My Domain in your org.
 
