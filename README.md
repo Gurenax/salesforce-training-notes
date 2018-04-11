@@ -48,6 +48,9 @@
 30. [User Management](30-USER-MANAGEMENT.md)
 31. [Lightning Experience Chatter Basics for Admins](31-LIGHTNING-EXPERIENECE-CHATTER-BASICS.md)
 
+### Lightning Experience - Development 
+32. [Lightning Apps](32-LIGHTNING-APPS.md)
+33. [Lightning App Builder](33-LIGHTNING-APP-BUILDER.md)
 
 ## Useful References
 - [Object Reference for Salesforce and Force.com](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_list.htm)
