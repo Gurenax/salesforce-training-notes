@@ -33,3 +33,18 @@
 
 ## Create a Lightning App
 - Go to `Setup | App Manager | New Lightning App`
+
+## Other Considerations
+- App icons can be `JPG, PNG, BMP or GIF`.
+- App Navigation can either be `Standard Navigation` or `Console Navigation`.  Console navigation is preffered by service users because it shows more information in a single view.
+- A `utility bar` can be added to give quick access to productivity tools.
+
+---
+
+## Upgrading a Classic App to Lightning App
+- Upgrading a Classic app to a Lightning app lets you and your users take advantage of custom branding and the enhanced navigation features available in Lightning Experience.
+
+- Go to `Setup | App Manager | Click dropdown from the selected classic app | Upgrade`
+
+- After you upgrade a Classic app, the two versions of the app must be managed separately. Future changes you make to the Classic app won’t be reflected in the Lightning version of the app, and vice versa.
+
