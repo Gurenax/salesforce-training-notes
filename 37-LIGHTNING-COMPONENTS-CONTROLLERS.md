@@ -27,7 +27,7 @@
 * helloMessageInteractiveController.js
 
 ```javascript
-;({
+({
   handleClick: function(component, event, helper) {
     var btnClicked = event.getSource() // the button
     var btnMessage = btnClicked.get('v.label') // the button's label
@@ -49,7 +49,7 @@
 ### Function Chaining, Rewiring, and Simple Debugging
 
 ```javascript
-;({
+({
   handleClick: function(component, event, helper) {
     var btnClicked = event.getSource() // the button
     var btnMessage = btnClicked.get('v.label') // the button's label
@@ -69,7 +69,7 @@
 ## Solution to challenge
 
 ```javascript
-;({
+({
   packItem: function(component, event, helper) {
     // Get the value of item
     var new_item = component.get('v.item')

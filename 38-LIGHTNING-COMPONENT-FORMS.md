@@ -113,7 +113,7 @@
 * expensesController.js
 
 ```javascript
-;({
+({
   clickCreate: function(component, event, helper) {
     var validExpense = component
       .find('expenseform')
@@ -155,7 +155,7 @@
 * Expense helper `expenseHelper.js`
 
 ```javascript
-;({
+({
   createExpense: function(component, expense) {
     var theExpenses = component.get('v.expenses')
 
@@ -210,7 +210,7 @@
 * `expenseItemController.js`
 
 ```javascript
-;({
+({
   doInit: function(component, event, helper) {
     var mydate = component.get('v.expense.Date__c')
     if (mydate) {
@@ -422,7 +422,7 @@
 * `campingListController.js`
 
 ```javascript
-;({
+({
   clickCreateItem: function(component, event, helper) {
     /* Validate the Form */
     var validItem = component
@@ -487,7 +487,7 @@
 * Not used because challenge prefers code to be in controller: `campingListHelper.js`
 
 ```javascript
-;({
+({
   createItem: function(component, item) {
     // Get the Items List from the View
     var theItemsList = component.get('v.items')
