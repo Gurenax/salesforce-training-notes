@@ -1,7 +1,6 @@
 # Lightning Components: Server-side Controllers
 
 ## Create a new Apex class `ExpensesController`
-
 ```java
 public with sharing class ExpensesController {
     @AuraEnabled
@@ -20,19 +19,16 @@ public with sharing class ExpensesController {
 ## Loading Data from Salesforce
 
 ### Connect the `ExpensesController` to `expenses.cmp` component
-
 ```html
 <aura:component controller="ExpensesController">
 ```
 
 ### Add an init handler to `expenses.cmp`
-
 ```html
 <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
 ```
 
 ### Add the doInit method to `expensesController.js` client-side controller
-
 ```javascript
     // Load expenses from Salesforce
     doInit: function(component, event, helper) {
@@ -61,7 +57,6 @@ public with sharing class ExpensesController {
 
 * Aside from the `with sharing` keyword, there are also `isAccessible()` and `isUpdatable()` checks.
 * Below is an example `getExpenses()` method using the `isAccessible()` check:
-
 ```java
     @AuraEnabled
     public static List<Expense__c> getExpenses() {
@@ -92,7 +87,6 @@ public with sharing class ExpensesController {
 ## Save Data to Salesforce
 
 * Update apex controller `ExpensesController.apxc`
-
 ```java
 public with sharing class ExpensesController {
     @AuraEnabled
@@ -113,7 +107,6 @@ public with sharing class ExpensesController {
 ```
 
 * Update the createExpense function in the helper `expenseHelper.js`
-
 ```javascript
     createExpense: function(component, expense) {
         var action = component.get("c.saveExpense");
@@ -137,7 +130,6 @@ public with sharing class ExpensesController {
 ## Solution to Challenge
 
 * `CampingListController.apxc`
-
 ```java
 public with sharing class CampingListController {
 	// getItems
@@ -156,7 +148,6 @@ public with sharing class CampingListController {
 ```
 
 * `campingList.cmp`
-
 ```html
 <aura:component controller="CampingListController">
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
@@ -221,7 +212,6 @@ public with sharing class CampingListController {
 ```
 
 * `campingListController.js`
-
 ```javascript
 ({
   doInit: function(component, event, helper) {
@@ -257,7 +247,6 @@ public with sharing class CampingListController {
 ```
 
 * `campingListHelper.js`
-
 ```javascript
 ({
   createItem: function(component, item) {
