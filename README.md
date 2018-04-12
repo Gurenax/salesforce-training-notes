@@ -56,6 +56,7 @@
 36. [Attributes and Expressions](36-LIGHTNING-COMPONENTS-ATTRIBUTES-AND-EXPRESSIONS.md)
 37. [Controllers](37-LIGHTNING-COMPONENTS-CONTROLLERS.md)
 38. [Forms](38-LIGHTNING-COMPONENT-FORMS.md)
+39. [Server-side Controllers](39-LIGHTNING-COMPONENTS-SERVERSIDE-CONTROLLERS.md)
 
 ## Useful References
 - [Object Reference for Salesforce and Force.com](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_list.htm)
