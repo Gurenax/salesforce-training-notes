@@ -54,6 +54,7 @@
 34. [Lightning Components Basics](34-LIGHTNING-COMPONENTS-BASICS.md)
 35. [Create and Edit Lightning Components](35-LIGHTNING-COMPONENTS-CREATE-EDIT.md)
 36. [Attributes and Expressions](36-LIGHTNING-COMPONENTS-ATTRIBUTES-AND-EXPRESSIONS.md)
+37. [Controllers](37-LIGHTNING-COMPONENTS-CONTROLLERS.md)
 
 ## Useful References
 - [Object Reference for Salesforce and Force.com](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_list.htm)
