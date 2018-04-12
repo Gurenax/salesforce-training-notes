@@ -69,4 +69,6 @@
 - [Using Bootstrap with Visualforce](https://github.com/sready/bootstrap-visualforce-101)
 - [Custom Controllers and Controller Extensions](https://developer.salesforce.com/docs/atlas.en-us.212.0.pages.meta/pages/pages_controller.htm)
 - [REST API Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.212.0.api_rest.meta/api_rest/intro_what_is_rest_api.htm)
-
+- [Lightning Design System](https://www.lightningdesignsystem.com/)
+- [Lightning Security](https://developer.salesforce.com/page/Lightning_Security)
+- [Lightning: Discover Next Steps](https://trailhead.salesforce.com/modules/lex_dev_lc_basics/units/lex_dev_lc_basics_next_steps)
