@@ -1,8 +1,4 @@
 # Salesforce Training Notes
-- As a salesforce professional, this is my journey as I transition into this new ecosystem.
-- I found it really helpful to keep notes and save links to useful trailhead content.
-- I believe this can be very useful during implementation as it saves you time from plowing through trailhead content.
-- I hope this can be useful to someone else!
 
 ## Contents
 ### CRM Essentials
