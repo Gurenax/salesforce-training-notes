@@ -55,6 +55,8 @@
 39. [Server-side Controllers](39-LIGHTNING-COMPONENTS-SERVERSIDE-CONTROLLERS.md)
 40. [Connect Components with Events](40-LIGHTNING-COMPONENTS-CONNECT-WITH-EVENTS.md)
 41. [Lightning Alternatives to JavaScript Buttons](41-LIGHTNING-ALTERNATIVES-TO-JAVASCRIPT-BUTTONS.md)
+42. [Lightning Design System](42-LIGHTNING-DESIGN-SYSTEM.md)
+
 
 ## Useful References
 - [Object Reference for Salesforce and Force.com](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_list.htm)
