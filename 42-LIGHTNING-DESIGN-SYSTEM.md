@@ -218,3 +218,274 @@
 </footer>
 <!-- / FOOTER -->
 ```
+
+---
+
+## Adding Salesforce Data
+
+### Data Table Component
+- The Data Table component is an enhanced version of a HTML table for displaying tabular data with the Lightning UI styling.
+- A Data Table is created by applying the `slds-table` class to a `<table>` tag. Use the `slds-table--bordered` class to apply a border.
+```html
+<table class="slds-table slds-table--bordered slds-table--cell-buffer slds-no-row-hover">
+  <thead>
+    <tr class="slds-text-heading--label">
+      <th scope="col">Account ID</th>
+      <th scope="col">Account name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">123</th>
+      <td>Account 1</td>
+    </tr>
+    <tr>
+      <th scope="row">456</th>
+      <td>Account 2</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+### Populating a Data Table with Dynamic Data
+- the Design System doesn’t support built-in Visualforce components — e.g. `<apex:*>`, `<chatter:*>`.
+- It is recommend to use Remote Objects, JavaScript Remoting or the REST API to access.
+
+- Insert the following code between the `</head>` and `<body>` tags:
+```html
+</head>    
+<apex:remoteObjects>
+  <apex:remoteObjectModel name="Account" fields="Id,Name,LastModifiedDate"/>
+</apex:remoteObjects>
+<body>
+```
+
+- Replace the primary content
+```html
+<!-- PRIMARY CONTENT WRAPPER -->
+<div class="myapp">
+  <!-- ACCOUNT LIST TABLE -->
+  <div id="account-list" class="slds-p-vertical--medium"></div>
+  <!-- / ACCOUNT LIST TABLE -->
+</div>
+<!-- / PRIMARY CONTENT WRAPPER -->
+```
+
+- Add the following JavaScript code at the end of the file before the `</body>` closing tag
+```javascript
+<!-- JAVASCRIPT -->
+<script>
+  (function() {
+    var account = new SObjectModel.Account();
+    var outputDiv = document.getElementById('account-list');
+    var updateOutputDiv = function() {
+      account.retrieve(
+        { orderby: [{ LastModifiedDate: 'DESC' }], limit: 10 },
+        function(error, records) {
+          if (error) {
+            alert(error.message);
+          } else {
+            // create data table
+            var dataTable = document.createElement('table');
+            dataTable.className = 'slds-table slds-table--bordered slds-table--cell-buffer slds-no-row-hover';
+            // add header row
+            var tableHeader = dataTable.createTHead();
+            var tableHeaderRow = tableHeader.insertRow();
+            var tableHeaderRowCell1 = tableHeaderRow.insertCell(0);
+            tableHeaderRowCell1.appendChild(document.createTextNode('Account name'));
+            tableHeaderRowCell1.setAttribute('scope', 'col');
+            tableHeaderRowCell1.setAttribute('class', 'slds-text-heading--label');
+            var tableHeaderRowCell2 = tableHeaderRow.insertCell(1);
+            tableHeaderRowCell2.appendChild(document.createTextNode('Account ID'));
+            tableHeaderRowCell2.setAttribute('scope', 'col');
+            tableHeaderRowCell2.setAttribute('class', 'slds-text-heading--label');
+            // build table body
+            var tableBody = dataTable.appendChild(document.createElement('tbody'))
+            var dataRow, dataRowCell1, dataRowCell2, recordName, recordId;
+            records.forEach(function(record) {
+              dataRow = tableBody.insertRow();
+              dataRowCell1 = dataRow.insertCell(0);
+              recordName = document.createTextNode(record.get('Name'));
+              dataRowCell1.appendChild(recordName);
+              dataRowCell2 = dataRow.insertCell(1);
+              recordId = document.createTextNode(record.get('Id'));
+              dataRowCell2.appendChild(recordId);
+            });
+            if (outputDiv.firstChild) {
+              // replace table if it already exists
+              // see later in tutorial
+              outputDiv.replaceChild(dataTable, outputDiv.firstChild);
+            } else {
+              outputDiv.appendChild(dataTable);
+            }
+          }
+        }
+      );
+    }
+    updateOutputDiv();
+  })();
+</script>
+<!-- / JAVASCRIPT -->
+```
+
+### Adding an Input Form
+- Add the following code above the account-list
+```html
+<!-- PRIMARY CONTENT WRAPPER -->
+<div class="myapp">
+  <!-- CREATE NEW ACCOUNT -->
+  <div aria-labelledby="newaccountform">
+    <!-- CREATE NEW ACCOUNT FORM -->
+    <form class="slds-form--stacked" id="add-account-form">
+      <!-- BOXED AREA -->
+      <fieldset class="slds-box slds-theme--default slds-container--small">
+        <legend id="newaccountform" class="slds-text-heading--medium slds-p-vertical--medium">Add a new account</legend>
+        <div class="slds-form-element">
+          <label class="slds-form-element__label" for="account-name">Name</label>
+          <div class="slds-form-element__control">
+            <input id="account-name" class="slds-input" type="text" placeholder="New account"/>
+          </div>
+        </div>
+        <button class="slds-button slds-button--brand slds-m-top--medium" type="submit">Create Account</button>
+      </fieldset>
+      <!-- / BOXED AREA -->
+    </form>
+    <!-- CREATE NEW ACCOUNT FORM -->
+  </div>
+  <!-- / CREATE NEW ACCOUNT -->
+</div>
+<!-- / PRIMARY CONTENT WRAPPER -->
+```
+
+- Add the following below the `updateOutputDiv()` function
+```javascript
+var accountForm = document.getElementById('add-account-form');
+var accountNameField = document.getElementById('account-name');
+var createAccount = function() {
+  var account = new SObjectModel.Account();
+  account.create({ Name: accountNameField.value }, function(error, records) {
+    if (error) {
+      alert(error.message);
+    } else {
+      updateOutputDiv();
+      accountNameField.value = '';
+    }
+  });
+}
+accountForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  createAccount();
+});
+```
+
+---
+
+## Use Images, Icons, and Avatars
+
+## Avatar
+```html
+<span class="slds-avatar slds-avatar--x-small">
+  <img src="/assets/images/avatar1.jpg" alt="meaningful text" />
+</span>
+```
+
+## Media Object
+- A common pattern for including images in web apps is to include an image and text side by side.
+```html
+<!-- HEADING AREA -->
+<div class="slds-media slds-no-space slds-grow">
+  <div class="slds-media__figure">
+    <span class="slds-avatar slds-avatar--medium">
+      <img src="{!URLFOR($Asset.SLDS, 'assets/images/avatar1.jpg')}" alt="" />
+    </span>
+  </div>
+  <div class="slds-media__body">
+    <p class="slds-text-title--caps slds-line-height--reset">Accounts</p>
+    <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate" title="My Accounts">My Accounts</h1>
+  </div>
+</div>
+<!-- / HEADING AREA -->
+```
+
+## Icons
+```html
+<span class="slds-icon_container slds-icon-standard-account" title="description of icon when needed">
+  <svg aria-hidden="true" class="slds-icon">
+    <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#account')}"></use>
+  </svg>
+  <span class="slds-assistive-text">Account Icon</span>
+</span>
+```
+
+- For MSIE, you need to include `svg4everybody.min.js`.
+```html
+  <apex:includeScript value="{!$Resource.REPLACE_WITH_NAME_OF_SVG4EVERYBODY_STATIC_RESOURCE}" />
+  <script>
+    svg4everybody();
+  </script>
+</head>
+```
+
+
+## Adding Icons to List View Data Table
+- Replace `updateOutputDiv()` function with:
+```javascript
+var updateOutputDiv = function() {
+  account.retrieve(
+    { orderby: [{ LastModifiedDate: 'DESC' }], limit: 10 },
+    function(error, records) {
+      if (error) {
+        alert(error.message);
+      } else {
+        // create data table
+        var dataTable = document.createElement('table');
+        dataTable.className = 'slds-table slds-table--bordered slds-table--cell-buffer slds-no-row-hover';
+        // add header row
+        var tableHeader = dataTable.createTHead();
+        var tableHeaderRow = tableHeader.insertRow();
+        var tableHeaderRowCellIcon = tableHeaderRow.insertCell(0);
+        tableHeaderRowCellIcon.setAttribute('class', 'slds-cell-shrink');
+        var tableHeaderRowCell1 = tableHeaderRow.insertCell(1);
+        tableHeaderRowCell1.appendChild(document.createTextNode('Account name'));
+        tableHeaderRowCell1.setAttribute('scope', 'col');
+        tableHeaderRowCell1.setAttribute('class', 'slds-text-heading--label');
+        var tableHeaderRowCell2 = tableHeaderRow.insertCell(2);
+        tableHeaderRowCell2.appendChild(document.createTextNode('Account ID'));
+        tableHeaderRowCell2.setAttribute('scope', 'col');
+        tableHeaderRowCell2.setAttribute('class', 'slds-text-heading--label');
+
+        // build table body
+        var tableBody = dataTable.appendChild(document.createElement('tbody'))
+        var dataRow, dataRowCell1, dataRowCell2, recordName, recordId;
+        records.forEach(function(record) {
+          dataRow = tableBody.insertRow();
+          var sldsSpriteReference = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+          sldsSpriteReference.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#account')}');
+          var accountIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          accountIcon.setAttributeNS('http://www.w3.org/2000/svg', 'aria-hidden', true);
+          accountIcon.classList.add('slds-icon');
+          accountIcon.appendChild(sldsSpriteReference);
+          accountIconWrapper = document.createElement('span');
+          accountIconWrapper.classList.add('slds-icon_container', 'slds-icon-standard-account');
+          accountIconWrapper.appendChild(accountIcon);
+          dataRowCellIcon = dataRow.insertCell(0);
+          dataRowCellIcon.appendChild(accountIconWrapper);
+          dataRowCell1 = dataRow.insertCell(1);
+          recordName = document.createTextNode(record.get('Name'));
+          dataRowCell1.appendChild(recordName);
+          dataRowCell2 = dataRow.insertCell(2);
+          recordId = document.createTextNode(record.get('Id'));
+          dataRowCell2.appendChild(recordId);
+        });
+        if (outputDiv.firstChild) {
+          // replace table if it already exists
+          // see later in tutorial
+          outputDiv.replaceChild(dataTable, outputDiv.firstChild);
+        } else {
+          outputDiv.appendChild(dataTable);
+        }
+      }
+    }
+  );
+}
+```
