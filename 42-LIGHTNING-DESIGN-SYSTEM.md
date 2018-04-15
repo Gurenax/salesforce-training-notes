@@ -396,7 +396,7 @@ accountForm.addEventListener('submit', function(e) {
 <div class="slds-media slds-no-space slds-grow">
   <div class="slds-media__figure">
     <span class="slds-avatar slds-avatar--medium">
-      <img src="{!URLFOR($Asset.SLDS, 'assets/images/avatar1.jpg')}" alt="" />
+      <img src="{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#user')}" alt="" />
     </span>
   </div>
   <div class="slds-media__body">
@@ -488,4 +488,251 @@ var updateOutputDiv = function() {
     }
   );
 }
+```
+
+---
+
+## Record Page Layout
+```html
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Salesforce Lightning Design System Trailhead Module</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Import the Design System style sheet -->
+  <apex:slds />
+</head>
+<body>
+  <!-- REQUIRED SLDS WRAPPER -->
+  <div class="slds-scope">
+    <!-- MASTHEAD -->
+    <p class="slds-text-heading--label slds-m-bottom--small">Salesforce Lightning Design System Trailhead Module</p>
+    <!-- / MASTHEAD -->
+    <!-- PAGE HEADER -->
+    <!-- / PAGE HEADER -->
+    <!-- PRIMARY CONTENT WRAPPER -->
+    <div class="myapp">
+    </div>
+    <!-- / PRIMARY CONTENT WRAPPER -->
+    <!-- FOOTER -->
+    <footer role="contentinfo" class="slds-p-around--large">
+      <!-- LAYOUT GRID -->
+      <div class="slds-grid slds-grid--align-spread">
+        <p class="slds-col">Salesforce Lightning Design System Example</p>
+        <p class="slds-col">&copy; Your Name Here</p>
+      </div>
+      <!-- / LAYOUT GRID -->
+    </footer>
+    <!-- / FOOTER --> 
+  </div>
+  <!-- / REQUIRED SLDS WRAPPER -->
+  <!-- JAVASCRIPT -->
+  <!-- / JAVASCRIPT -->
+</body>
+</html>
+</apex:page>
+```
+
+### Add page header
+```html
+<!-- PAGE HEADER -->
+<div class="slds-page-header">
+  <!-- PAGE HEADER TOP ROW -->
+  <div class="slds-grid">
+    <!-- PAGE HEADER / ROW 1 / COLUMN 1 -->
+    <div class="slds-col slds-has-flexi-truncate">
+      <!-- HEADING AREA -->
+      <!-- MEDIA OBJECT = FIGURE + BODY -->
+      <div class="slds-media slds-no-space slds-grow">
+        <div class="slds-media__figure">
+          <svg aria-hidden="true" class="slds-icon slds-icon-standard-user">
+            <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#user')}"></use>
+          </svg>
+        </div>
+        <div class="slds-media__body">
+          <p class="slds-text-title--caps slds-line-height--reset">Account</p>
+          <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate" title="SLDS Inc.">SLDS Inc.</h1>
+        </div>
+      </div>
+      <!-- / MEDIA OBJECT -->
+      <!-- HEADING AREA -->
+    </div>
+    <!-- / PAGE HEADER / ROW 1 / COLUMN 1 -->
+    <!-- PAGE HEADER / ROW 1 / COLUMN 2 -->
+    <div class="slds-col slds-no-flex slds-grid slds-align-top">
+      <div class="slds-button-group" role="group">
+        <button class="slds-button slds-button--neutral">
+          Contact
+        </button>
+        <button class="slds-button slds-button--neutral">
+          More
+        </button>
+      </div>
+    </div>
+    <!-- / PAGE HEADER / ROW 1 / COLUMN 2 -->
+  </div>
+  <!-- / PAGE HEADER TOP ROW -->
+  <!-- PAGE HEADER DETAIL ROW -->
+  <!-- / PAGE HEADER DETAIL ROW -->
+</div>
+<!-- / PAGE HEADER -->
+```
+
+### Add page header detail row
+```html
+<!-- PAGE HEADER DETAIL ROW -->
+<ul class="slds-grid slds-page-header__detail-row">
+  <!-- PAGE HEADER / ROW 2 / COLUMN 1 -->
+  <li class="slds-page-header__detail-block">
+    <p class="slds-text-title slds-truncate slds-m-bottom--xx-small" title="Field 1">Field 1</p>
+    <p class="slds-text-body--regular slds-truncate" title="Description that demonstrates truncation with a long text field">Description that demonstrates truncation with a long text field.</p>
+  </li>
+  <!-- PAGE HEADER / ROW 2 / COLUMN 2 -->
+  <li class="slds-page-header__detail-block">
+    <p class="slds-text-title slds-truncate slds-m-bottom--xx-small" title="Field2 (3)">Field 2 (3)
+      <button class="slds-button slds-button--icon" aria-haspopup="true" title="More Actions">
+        <svg class="slds-button__icon slds-button__icon--small" aria-hidden="true">
+          <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+        </svg>
+        <span class="slds-assistive-text">More Actions</span>
+      </button>
+    </p>
+    <p class="slds-text-body--regular">Multiple Values</p>
+  </li>
+  <!-- PAGE HEADER / ROW 2 / COLUMN 3 -->
+  <li class="slds-page-header__detail-block">
+    <p class="slds-text-title slds-truncate slds-m-bottom--xx-small" title="Field 3">Field 3</p><a href="javascript:void(0);">Hyperlink</a></li>
+  <!-- PAGE HEADER / ROW 2 / COLUMN 4 -->
+  <li class="slds-page-header__detail-block">
+    <p class="slds-text-title slds-truncate slds-m-bottom--xx-small" title="Field 4">Field 4</p>
+    <p>
+      <span title="Description (2-line truncation—must use JS to truncate).">Description (2-line truncat...</span>
+    </p>
+  </li>
+</ul>
+<!-- / PAGE HEADER DETAIL ROW -->
+```
+
+### Primary Related List
+```html
+<!-- PRIMARY CONTENT WRAPPER -->
+<div class="myapp">
+  <!-- RELATED LIST CARDS-->
+  <div class="slds-grid slds-m-top--large">
+    <!-- MAIN CARD -->
+    <div class="slds-col slds-col-rule--right slds-p-right--large slds-size--8-of-12">
+      left hand column related list
+    </div>
+    <!-- / MAIN CARD -->
+    <!-- NARROW CARD -->
+    <div class="slds-col slds-p-left--large slds-size--4-of-12">
+      right hand column related list
+    </div>
+    <!-- / NARROW CARD -->
+  </div>
+  <!-- / RELATED LIST CARDS -->
+</div>
+<!-- / PRIMARY CONTENT WRAPPER -->
+```
+
+### Add the Main Card
+```html
+<!-- MAIN CARD -->
+<div class="slds-col slds-col-rule--right slds-p-right--large slds-size--8-of-12">
+  <article class="slds-card">
+    <div class="slds-card__header slds-grid">
+      <header class="slds-media slds-media--center slds-has-flexi-truncate">
+        <div class="slds-media__figure">
+          <svg aria-hidden="true" class="slds-icon slds-icon-standard-contact slds-icon--small">
+            <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#contact')}"></use>
+          </svg>
+        </div>
+        <div class="slds-media__body slds-truncate">
+          <a href="javascript:void(0);" class="slds-text-link--reset">
+            <span class="slds-text-heading--small">Contacts</span>
+          </a>
+        </div>
+      </header>
+    </div>
+    <!-- CARD BODY = TABLE -->
+    <div class="slds-card__body slds-scrollable_x">
+      <table class="slds-table slds-table--bordered slds-no-row-hover slds-table--cell-buffer">
+        <thead>
+          <tr class="slds-text-heading--label">
+            <th class="slds-size--1-of-4" scope="col">Name</th>
+            <th class="slds-size--1-of-4" scope="col">Company</th>
+            <th class="slds-size--1-of-4" scope="col">Title</th>
+            <th class="slds-size--1-of-4" scope="col">Email</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="slds-hint-parent">
+            <th class="slds-size--1-of-4" scope="row"><a href="javascript:void(0);">Adam Choi</a></th>
+            <td class="slds-size--1-of-4">Company One</td>
+            <td class="slds-size--1-of-4">Director of Operations</td>
+            <td class="slds-size--1-of-4">adam@company.com</td>
+            <td class="slds-cell-shrink">
+              <button class="slds-button slds-button--icon-border-filled slds-button--icon-x-small">
+                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--hint slds-button__icon--small">
+                  <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#down')}"></use>
+                </svg>
+                <span class="slds-assistive-text">Show More</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- / CARD BODY = SECTION + TABLE -->
+    <div class="slds-card__footer">
+      <a href="javascript:void(0);">View All <span class="slds-assistive-text">contacts</span></a>
+    </div>
+  </article>
+</div>
+<!-- / MAIN CARD -->
+```
+
+### Add the Narrow Card
+```html
+<!-- NARROW CARD -->
+<div class="slds-col slds-p-left--large slds-size--4-of-12">
+  <article class="slds-card slds-card--narrow">
+    <div class="slds-card__header slds-grid">
+      <header class="slds-media slds-media--center slds-has-flexi-truncate">
+        <div class="slds-media__figure">
+          <svg class="slds-icon slds-icon-standard-lead slds-icon--small" aria-hidden="true">
+            <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#lead')}"></use>
+          </svg>
+        </div>
+        <div class="slds-media__body slds-truncate">
+          <h2 class="slds-text-heading--small">Team</h2>
+        </div>
+      </header>
+    </div>
+    <div class="slds-card__body">
+      <div class="slds-card__body--inner">
+        <div class="slds-tile">
+          <h3 class="slds-truncate" title="Anne Choi"><a href="javascript:void(0);">Anne Choi</a></h3>
+          <div class="slds-tile__detail slds-text-body--small">
+            <dl class="slds-list--horizontal slds-wrap">
+              <dt class="slds-item--label slds-text-color--weak slds-truncate" title="Email:">
+                Email:
+              </dt>
+              <dd class="slds-item--detail slds-truncate" title="achoi@burlingtion.com">
+                achoi@burlingtion.com
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slds-card__footer">
+      <a href="javascript:void(0);">View All <span class="slds-assistive-text">team members</span></a>
+    </div>
+  </article>
+</div>
+<!-- / NARROW CARD -->
 ```
